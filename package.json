@@ -28,7 +28,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon ./backend/server/index.js ",
-    "client": "nodemon ./backend/db/Seed.js "
+    "client": "nodemon ./backend/db/Seed.js ",
+    "extract-seed-data": "node ./backend/seed/extract.js"
   },
   "eslintConfig": {
     "extends": [
@@ -47,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "lorem-ipsum": "^2.0.4"
   }
 }
