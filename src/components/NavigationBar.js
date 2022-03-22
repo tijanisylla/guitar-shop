@@ -1,24 +1,13 @@
 import React from 'react';
-import {Navbar, Nav ,Container, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import {Navbar, Nav ,Container, Form, FormControl, Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom'
+import '../Style/Navigation.css'
 const NavigationBar = () => {
-  const styled = {
-    backgroundImage: "url(" + "https://www.desktopbackground.org/p/2010/05/01/10629_guitar-acoustic-wallpaper-black-and-brown-acoustic-guitars-wallpaper-guitar-acoustic-wallpapers-hd-desktop-203-wallpaper-download-beautiful-jpg_1280x800_h.jpg" + ")",
-    height: '300px',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-	  color: 'white',
-	  fontSize: '15px',
-    backgroundRepeat: 'no-repeat',
- 
- 
-  
-
-  }
   
   return (
+    <header>
     <div className="nav-bar">
-      <Navbar variant={"dark"} expand="lg" style={styled}>
+      <Navbar variant={"dark"} expand="lg">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">LOGO</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll"/>
@@ -32,9 +21,10 @@ const NavigationBar = () => {
               navbarScroll>
               <Nav.Link as={Link} to="/"> HOME</Nav.Link>
               <Nav.Link  as={Link} to="/about">ABOUT</Nav.Link>
-              <Nav.Link  as={Link} to="/sign-up">SIGN-UP</Nav.Link>
+              <Nav.Link  as={Link} to="/signup">SIGN-UP</Nav.Link>
               <Nav.Link  as={Link} to="/contact-us">CONTACT</Nav.Link>
               <Nav.Link  as={Link} to="/service">SERVICES</Nav.Link>  
+              <Nav.Link  as={Link} to="/login">LOGIN</Nav.Link>  
             </Nav>
             <Form className="d-flex">
               <FormControl
@@ -48,6 +38,7 @@ const NavigationBar = () => {
         </Container>
       </Navbar>
     </div>
+    </header>
   )
 }
 

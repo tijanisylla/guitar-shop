@@ -1,41 +1,75 @@
+import {idleTimeoutMillis} from 'pg/lib/defaults';
 import React from 'react'
 import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import '../Style/Carousel.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Card, Button} from 'react-bootstrap';
+import '../Style/Home.css'
+import FetchingData from './FetchingData';
+import Loading from './Loading';
 const Home = () => {
+  const {data, loading, error} = FetchingData('http://localhost:8000/guitars');
 
-  const guitar = {
-    model_name: "Stratocaster",
-    brand_name: "Fender",
-    price: "1600.00",
-    rating: 5,
-    image_url: "https://media.musiciansfriend.com/is/image/MMGS7/American-Professional-II-Strato" +
-        "caster-Rosewood-Fingerboard-Electric-Guitar-3-Color-Sunburst/L78030000001000-00-" +
-        "500x500.jpg"
-  }
-  const {model_name, image_url, price, rating,  brand_name} = guitar
   return (
     <div className="home-component">
-      <Carousel infiniteLoop autoPlay>
-        <div className="image">
-          <img src={image_url} alt="guitar"/>
-          <div>
-          </div>
-        </div>
-        <div className="image">
-          <img src={image_url} alt="guitar"/>
-        </div>
-        <div className="image">
-          <img src={image_url} alt="guitar"/>
-        </div>
-        <div className="image">
-          <img src={image_url} alt="guitar"/>
-        </div>
-        <div className="image">
-          <img src={image_url} alt="guitar"/>
-        </div>
-      </Carousel>
+      {loading
+        ? <Loading/>
+        : null}
+      {error
+        ? <span>An error has occurred !</span>
+        : null}
+      <div className="card-container">
+        {data.map((guitar, idx) => {
+          const {
+            brand_name,
+            model_name,
+            description,
+            price,
+            rating,
+            image_url,
+            category
+          } = guitar;
+          return (
+
+            <Card className="card-guitars">
+              <Card.Img variant="top" src={image_url} alt="guitar"/>
+              <Card.Body>
+                <Card.Title>{brand_name}</Card.Title>
+                <Card.Text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. 
+                </Card.Text>
+                <Button variant="primary">Go somewhere</Button>
+              </Card.Body>
+            </Card>
+
+          )
+        })
+}
+
+      </div>
     </div>
   )
 }
 export default Home
+
+{/* <Carousel infiniteLoop autoPlay>
+        <div className="image">
+          <img src="" alt="guitar"/>
+          <div>
+          </div>
+        </div>
+        <div className="image">
+          <img src="" alt="guitar"/>
+        </div>
+        <div className="image">
+          <img src="" alt="guitar"/>
+        </div>
+        <div className="image">
+          <img src="" alt="guitar"/>
+        </div>
+        <div className="image">
+          <img src="" alt="guitar"/>
+        </div>
+      </Carousel> */
+}
