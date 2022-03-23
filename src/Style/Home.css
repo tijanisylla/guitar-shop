@@ -1,47 +1,45 @@
 
 .home-component{
     margin : 0 auto;
-    
    
     }
+ .slider-wrapper{
+     height: 500px;
+     text-align: center;
+ }
+ .slider-wrapper .image{
+    width : 400px;
+    margin : 0 auto;
+    padding : 0.5rem;
+ 
+
+}
+.slider-wrapper .image .shop-now{
+    background: rgba(255, 30, 0, 0.918);
+    margin-top: 0;
+
+}
+.slider-wrapper .image .shop-now a{
+    text-align: center;
+    text-decoration: none;
+    color : #ffff;
+}
+/* .slider-wrapper .image .shop-now :hover{
+display: none
+} */
 
 .carousel{
     display : flex;
     justify-content: center;  
-    border : 2px solid black;
-
+    background-position: center;
 }
 
+    .carousel .slide{
+      max-height: 100%;
+      width: auto;
+      height: 80vh;
+     }  
+  
 
-.card-container{
-    display:flex;
-    flex-direction:row;
-    flex-flow: wrap;
-    justify-content: space-around;
-    padding: 20px;
-    width: 100%;
-    margin: 0 auto;
-    height: auto;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    align-items: center;
-   
-}
 
-.card-guitars{
-width : 20rem;
-padding : 0.5rem;
-margin : 15px;
-}
-
-.card-guitars:hover {
-    cursor: pointer;
-  }
-
-  /* .carousel .slide img{
-    max-height: 100%;
-    width: auto;
-   }  */
-
-   /* .carousel .slide{
-    height: 80vh;
-} */
+ 
