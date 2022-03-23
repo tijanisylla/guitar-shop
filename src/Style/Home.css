@@ -1,0 +1,45 @@
+
+.home-component{
+    margin : 0 auto;
+   
+    }
+ .slider-wrapper{
+     height: 500px;
+     text-align: center;
+ }
+ .slider-wrapper .image{
+    width : 400px;
+    margin : 0 auto;
+    padding : 0.5rem;
+ 
+
+}
+.slider-wrapper .image .shop-now{
+    background: rgba(255, 30, 0, 0.918);
+    margin-top: 0;
+
+}
+.slider-wrapper .image .shop-now a{
+    text-align: center;
+    text-decoration: none;
+    color : #ffff;
+}
+/* .slider-wrapper .image .shop-now :hover{
+display: none
+} */
+
+.carousel{
+    display : flex;
+    justify-content: center;  
+    background-position: center;
+}
+
+    .carousel .slide{
+      max-height: 100%;
+      width: auto;
+      height: 80vh;
+     }  
+  
+
+
+ 

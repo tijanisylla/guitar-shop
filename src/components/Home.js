@@ -1,40 +1,86 @@
 import React from 'react'
-import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import '../Style/Carousel.css'
+import '../Style/Home.css'
+import {Link} from 'react-router-dom';
+import {Carousel} from 'react-responsive-carousel';
 const Home = () => {
+ 
+ const img1 = "https://media.musiciansfriend.com/is/image/MMGS7/Special-Grand-Performance-Cutaway-15ME-Streetmaster-Style-Acoustic-Electric-Guitar-Natural/L40683000001000-00-220x220.jpg"
+ const img2 = "https://media.musiciansfriend.com/is/image/MMGS7/Excel-Series-SS-Semi-Hollow-Electric-Guitar-with-Stopbar-Tailpiece-Black/L13200000005000-00-220x220.jpg"
+ const img3 = "https://media.musiciansfriend.com/is/image/MMGS7/LTD-Kirk-Hammett-Signature-White-Zombie-Electric-Guitar-Graphic/J03791000001000-00-220x220.jpg"
+ const img4 = "https://media.musiciansfriend.com/is/image/MMGS7/Concept-Series-Rhoads-RR24MG-Ebony-Fingerboard-Electric-Guitar-Gloss-Black/L85496000001000-00-220x220.jpg"
+ const img5 = "https://media.musiciansfriend.com/is/image/MMGS7/RG5120M-Prestige-Electric-Guitar-Polar-Lights/L34998000002000-00-220x220.jpg"
+ const img6 = "https://media.musiciansfriend.com/is/image/MMGS7/Boden-Metal-NX-6-Electric-Guitar-Black-Granite/L89226000001000-00-220x220.jpg"
 
-  const guitar = {
-    model_name: "Stratocaster",
-    brand_name: "Fender",
-    price: "1600.00",
-    rating: 5,
-    image_url: "https://media.musiciansfriend.com/is/image/MMGS7/American-Professional-II-Strato" +
-        "caster-Rosewood-Fingerboard-Electric-Guitar-3-Color-Sunburst/L78030000001000-00-" +
-        "500x500.jpg"
-  }
-  const {model_name, image_url, price, rating,  brand_name} = guitar
   return (
     <div className="home-component">
-      <Carousel infiniteLoop autoPlay>
+       {/* Just testing for now */}
+       {/* autoPlay */}
+      <Carousel>
         <div className="image">
-          <img src={image_url} alt="guitar"/>
-          <div>
-          </div>
+      
+          <img src={img1} alt="guitar"/>
+          <div className="shop-now">
+            <span>
+              <Link to="/guitars">
+              SHOP NOW
+              </Link>
+              </span>
+            </div>
         </div>
         <div className="image">
-          <img src={image_url} alt="guitar"/>
+          <img src={img2} alt="guitar"/>
+          <div className="shop-now">
+            <span>
+              <Link to="/guitars">
+              SHOP NOW
+              </Link>
+              </span>
+            </div>
+          
         </div>
         <div className="image">
-          <img src={image_url} alt="guitar"/>
+          <img src={img3} alt="guitar"/>
+          <div className="shop-now">
+            <span>
+              <Link to="/guitars">
+              SHOP NOW
+              </Link>
+              </span>
+            </div>
         </div>
         <div className="image">
-          <img src={image_url} alt="guitar"/>
+          <img src={img4} alt="guitar"/>
+          <div className="shop-now">
+            <span>
+              <Link to="/guitars">
+              SHOP NOW
+              </Link>
+              </span>
+            </div>
         </div>
         <div className="image">
-          <img src={image_url} alt="guitar"/>
+          <img src={img5} alt="guitar"/>
+          <div className="shop-now">
+            <span>
+              <Link to="/guitars">
+              SHOP NOW
+              </Link>
+              </span>
+            </div>
+        </div>
+        <div className="image">
+          <img src={img6} alt="guitar"/>
+          <div className="shop-now">
+            <span>
+              <Link to="/guitars">
+              SHOP NOW
+              </Link>
+              </span>
+            </div>
         </div>
       </Carousel>
+      
     </div>
   )
 }
