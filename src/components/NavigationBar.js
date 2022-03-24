@@ -23,7 +23,6 @@ const NavigationBar = () => {
               <Nav.Link  as={Link} to="/about">ABOUT</Nav.Link>
               <Nav.Link  as={Link} to="/signup">SIGN-UP</Nav.Link>
               <Nav.Link  as={Link} to="/contact-us">CONTACT</Nav.Link>
-              <Nav.Link  as={Link} to="/service">SERVICES</Nav.Link>  
               <Nav.Link  as={Link} to="/login">LOGIN</Nav.Link>  
             </Nav>
             <Form className="d-flex">
