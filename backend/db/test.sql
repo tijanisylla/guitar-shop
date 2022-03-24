@@ -1,7 +1,7 @@
 --? Admin
---? Guitars
+--? guitars
 --? users
---? guitars:
+
 
 -- Testing table
 --   id: 24

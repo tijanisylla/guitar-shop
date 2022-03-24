@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from './Home';
 import About from './About';
-import Services from './Service';
 import Contact from './Contact';
 import SigneUp from './SigneUp';
 import NotFound from './NotFound'
@@ -21,7 +20,6 @@ const App = () => {
           <Routes>
             <Route path='/' exact element={<Home/>}/>
             <Route path='/about'exact element={<About/>}/>
-            <Route path='/service'exact element={<Services/>}/>
             <Route path='/contact-us' element={<Contact/>}/>
             <Route path='/signup' exact element={<SigneUp/>}/>
             <Route path='/login' exact element={<Login/>}/>
