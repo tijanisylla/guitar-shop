@@ -1,10 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card, Button} from 'react-bootstrap';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCartShopping} from '@fortawesome/free-solid-svg-icons'
 import '../Style/Home.css'
 import FetchingData from './FetchingData';
 import Loading from './Loading';
 import StarsRating from './StarsRating';
-import {formatterFunc, getLimitFunc } from './Helper';
+import {formatterFunc, getLimitFunc} from './Helper';
 import '../Style/Guitars.css';
 const Home = () => {
   const {data, loading, error} = FetchingData('http://localhost:8000/guitars');
@@ -47,6 +49,8 @@ const Home = () => {
                     </span>
                   </Card.Text>
                   <Button variant="primary">Go somewhere</Button>
+                
+
                 </Card.Body>
               </Card>
             </div>

@@ -1,16 +1,33 @@
 const express = require('express');
-const App = express();
-const cors = require( 'cors' );
+const app = express();
+const morgan = require('morgan');
+const cors = require('cors');
 const PORT = 8000;
-const {Router} = require('./api');
+const {getAllUsers, getAllGuitars} = require('../db/index');
+const {client} = require('../db/index');
+client.connect();
 
-//? Middle ware
-App.use(express.json())
-App.use( cors() )
+// Middle Ware
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(cors());
 
-// Get All guiatrs
-App.use('/guitars', Router)
+// Users
+app.get('/users', async(req, res) => {
+  const users = await getAllUsers();
+  res.send(users);
+  console.log('Got users!')
+});
 
-App.listen(PORT, () => {
-  console.log(`App is running at port ${PORT}`)
+// Guitars
+app.get('/guitars', async(req, res) => {
+  const guitars = await getAllGuitars();
+  res.send(guitars);
+  console.log('Got guitars!')
+});
+
+
+// app listenig
+app.listen(PORT, () => {
+  console.log(`App is listening on port ${PORT}`)
 })
