@@ -1,65 +1,84 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, Button} from 'react-bootstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCartShopping} from '@fortawesome/free-solid-svg-icons'
-import '../Style/Home.css'
-import FetchingData from './FetchingData';
-import Loading from './Loading';
-import StarsRating from './StarsRating';
-import {formatterFunc, getLimitFunc} from './Helper';
-import '../Style/Guitars.css';
-const Home = () => {
-  const {data, loading, error} = FetchingData('http://localhost:8000/guitars');
+import {useState, useEffect} from 'react';
+import DisplayGuitars from  './DisplayGuitars'
+import ReactPaginate from "react-paginate";
 
-  return (
-    <div className="home-component">
-      {loading
-        ? <Loading/>
-        : null}
-      {error
-        ? <span>An error has occurred !</span>
-        : null}
+const Guitars = () => {
 
-      <div className="card-container">
+//===================USE STATE===================
+ 
+    const [data, setData] = useState([]);
+    const [loading,setLoading] = useState(false)
+    const [error,  setError] = useState('')
+    const [page, setPage] = useState(1);
+    const [perPage] = useState(10)// 10 guitars per page
+    const [totalPages, setTotalPages] = useState(25)
+// =================== FETCH ALL GUITARS ===================
 
-        {data.map((guitar, idx) => {
-          const {
-            brand_name,
-            model_name,
-            description,
-            price,
-            rating,
-            image_url,
-            category
-          } = guitar;
-          return (
-            <div key={idx}>
-              <Card className="card-guitars">
-                <Card.Img variant="top" src={image_url} alt="guitar"/>
-                <Card.Body>
-                  <Card.Title>{brand_name}</Card.Title>
-                  <Card.Text>
-                    <StarsRating numberOfStars={rating}/>
-                  </Card.Text>
-                  <Card.Text></Card.Text>
-                  <span className="price">{formatterFunc(price)}</span>
-                  <Card.Text>
-                    <span className="description">
-                      {getLimitFunc(description)}
-                    </span>
-                  </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
-                
+  useEffect(() => {
+    async function getGuitarsData(){
+      try {
+        setLoading(true)
+        const response = await fetch(`http://localhost:8000/guitars?page=${page}&perPage=${perPage}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+             mode: "cors"
+          }
+        });
 
-                </Card.Body>
-              </Card>
-            </div>
-          )
-        })
-}
+        const  data = await response.json();
+        if (response.ok || response.status === 200) {
+          setData(data);
+        }
+    } catch (e) {
+      setError(e);
+      setLoading(false);
+      // console.error(e);
+    }
+   setLoading(false)
+    } 
+    getGuitarsData()
+  }, [page]) 
 
-      </div>
-    </div>
+
+
+  const handlePlage = ({selected}) => {
+  setPage(selected + 1);
+  }
+
+ 
+  return(
+<div>
+
+<DisplayGuitars 
+data={data}
+error={error}
+loading={loading}
+/>
+<h1>Page number : {page} </h1>
+<ReactPaginate
+        previousLabel={"previous"}
+        nextLabel={"next"}
+        breakLabel={"..."}
+        pageCount={totalPages}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={3}
+        onPageChange={handlePlage}
+        containerClassName={"pagination justify-content-center"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"active"}
+      />
+  </div>
   )
+
+
 }
-export default Home
+
+export default Guitars;

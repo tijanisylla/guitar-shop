@@ -4,7 +4,8 @@ const {
     getAllUsers,
     createUsers,
     createGuitar,
-    getAllGuitars
+    getAllGuitars,
+    getGuitarById
 } = require('./index');
 const guitarsJson = require('../seed/guitars.json');
 const usersJson = require('../seed/users.json');
@@ -79,7 +80,7 @@ async function createInitialUsers() {
   }
 }
 
- // ==================== Initial  guitar ====================
+// ==================== Initial  guitar ====================
 async function createInitialGuitars() {
   try {
       console.log('Starting to create guitars...');
@@ -93,16 +94,25 @@ async function createInitialGuitars() {
       throw error;
   }
 }
-  // ==================== TEST DATA BSASE WITH DUMMY DATA ====================
+
+
+  
+
+// ==================== TEST DATA BSASE WITH DUMMY DATA ====================
   async function testDB() {
     try {
       console.log("Starting to test database...");
+       //? get all users
+       //const getAllusers = await getAllUsers();
+      //console.log("All users: ",  getAllusers);
 
-    //   const getAllusers = await getAllUsers();
-    //   console.log("All users: ",  getAllusers);
+      //? get all guitars
+      // const guitars = await getAllGuitars();
+      // console.log("All guitars: ",  guitars);
 
-      const guitars = await getAllGuitars();
-      console.log("All guitars: ",  guitars);
+      //? get guiatr id 
+      // const guitarIds = await getGuitarById(1);
+      // console.log(guitarIds)
 
       console.log("Finished database tests!");
     } catch (error) {
@@ -132,3 +142,4 @@ async function createInitialGuitars() {
     .then(testDB)
     .catch(console.error)
     .finally(() => client.end());
+
