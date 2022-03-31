@@ -16,9 +16,13 @@ const SALT_COUNT = 10;
 // get All users
 async function getAllUsers() {
   try {
+<<<<<<< HEAD
     const {
       rows
     } = await client.query(`
+=======
+    const {rows} = await client.query(`
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
     SELECT * FROM users;
     `);
     return rows;
@@ -28,6 +32,7 @@ async function getAllUsers() {
 
 }
 // Create users
+<<<<<<< HEAD
 async function createUsers({
   username,
   password
@@ -37,19 +42,31 @@ async function createUsers({
     const {
       rows
     } = await client.query(`
+=======
+async function createUsers({username, password}) {
+ const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+  try {
+ const {rows} = await client.query(`
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
  INSERT INTO users(username, password) 
       VALUES($1, $2) 
       ON CONFLICT (username) DO NOTHING 
       RETURNING *;
 
+<<<<<<< HEAD
  `, [username, hashedPassword]);
     return rows;
+=======
+ `,[ username , hashedPassword ]);
+  return rows; 
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
   } catch (error) {
     throw error;
   }
 
 }
 
+<<<<<<< HEAD
 async function getUser({
   username,
   password
@@ -113,12 +130,40 @@ async function getAllGuitars({
     `, [limit, offset]);
     return rows
 
+=======
+async function getUser({ username, password }) {
+  if (!username || !password) { return }
+
+  try {
+      const user = await getUserByUsername(username)
+      if (!user) { return }
+
+      const hashedPassword = user.password
+      const passwordsMatch = await bcrypt.compare(password, hashedPassword)
+      if (!passwordsMatch) { return }
+
+      delete user.password
+      
+      return user
+  } catch (error) {
+      throw error
+  }
+}
+async function getAllGuitars() {
+  try {
+    const {rows} = await client.query(`
+    SELECT * FROM guitars;
+    `);
+    return rows;
+    
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
   } catch (error) {
     throw error;
   }
 
 }
 // craete guitars
+<<<<<<< HEAD
 async function createGuitar({
   model_name,
   description,
@@ -170,6 +215,24 @@ async function getGuitarById(id) {
     throw error;
   }
 }
+=======
+async function createGuitar({model_name,description,brand_name, price, rating, image_url,category}) {
+  try {
+      const { rows: [guitar] } = await client.query(`
+          INSERT INTO guitars(model_name,description,brand_name, price, rating, image_url,category)
+          VALUES ($1,$2,$3,$4,$5,$6,$7)
+          RETURNING *
+      `, [model_name,description,brand_name, price, rating, image_url,category]);
+        //  console.log(guitar)
+    return guitar;
+  } catch (error) {
+      throw error;
+  };
+};
+// 
+
+
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
 
 module.exports = {
   client,
@@ -177,7 +240,11 @@ module.exports = {
   createUsers,
   getUser,
   createGuitar,
+<<<<<<< HEAD
   getAllGuitars,
   getGuitarById,
   getUserByUsername
+=======
+  getAllGuitars
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
 }

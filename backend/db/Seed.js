@@ -4,8 +4,12 @@ const {
     getAllUsers,
     createUsers,
     createGuitar,
+<<<<<<< HEAD
     getAllGuitars,
     getGuitarById
+=======
+    getAllGuitars
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
 } = require('./index');
 const guitarsJson = require('../seed/guitars.json');
 const usersJson = require('../seed/users.json');
@@ -80,7 +84,11 @@ async function createInitialUsers() {
   }
 }
 
+<<<<<<< HEAD
 // ==================== Initial  guitar ====================
+=======
+ // ==================== Initial  guitar ====================
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
 async function createInitialGuitars() {
   try {
       console.log('Starting to create guitars...');
@@ -94,7 +102,40 @@ async function createInitialGuitars() {
       throw error;
   }
 }
+  // ==================== TEST DATA BSASE WITH DUMMY DATA ====================
+  async function testDB() {
+    try {
+      console.log("Starting to test database...");
 
+    //   const getAllusers = await getAllUsers();
+    //   console.log("All users: ",  getAllusers);
+
+      const guitars = await getAllGuitars();
+      console.log("All guitars: ",  guitars);
+
+      console.log("Finished database tests!");
+    } catch (error) {
+      console.error("Error testing database!");
+      throw error;
+    }
+  }
+
+// ==================== Connect Database ====================
+  async function rebuildDB() {
+    try {
+      client.connect();
+  
+      await dropTables();
+      await createTables();
+      await createInitialUsers();
+      await createInitialGuitars();
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+<<<<<<< HEAD
 
   
 
@@ -136,10 +177,16 @@ async function createInitialGuitars() {
     }
   }
 
+=======
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
   
 // ================= Ending Databe =================
   rebuildDB()
     .then(testDB)
     .catch(console.error)
+<<<<<<< HEAD
     .finally(() => client.end());
 
+=======
+    .finally(() => client.end());
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2

@@ -1,8 +1,12 @@
 --? Admin
 --? guitars
 --? users
+<<<<<<< HEAD
 --? LINIT OFFSET
 --? guiatr id, details...
+=======
+
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
 
 -- Testing table
 --   id: 24

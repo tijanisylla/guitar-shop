@@ -3,6 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 const PORT = 8000;
+<<<<<<< HEAD
 const {
   getAllUsers,
   getAllGuitars,
@@ -11,6 +12,10 @@ const {
 const {
   client
 } = require('../db/index');
+=======
+const {getAllUsers, getAllGuitars} = require('../db/index');
+const {client} = require('../db/index');
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
 client.connect();
 
 // Middle Ware
@@ -18,13 +23,19 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 
+<<<<<<< HEAD
 // ===========Users===========
 app.get('/users', async (req, res) => {
+=======
+// Users
+app.get('/users', async(req, res) => {
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
   const users = await getAllUsers();
   res.send(users);
   console.log('Got users!')
 });
 
+<<<<<<< HEAD
 // ===========guitars===========
 app.get('/guitars', async (req, res) => {
   const {
@@ -83,6 +94,17 @@ if (guitarId) {
 
 
 // =========== App && Port ===========
+=======
+// Guitars
+app.get('/guitars', async(req, res) => {
+  const guitars = await getAllGuitars();
+  res.send(guitars);
+  console.log('Got guitars!')
+});
+
+
+// app listenig
+>>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`)
 })

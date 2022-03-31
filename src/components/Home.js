@@ -6,7 +6,7 @@ import '../Style/Home.css'
 import {Link} from 'react-router-dom';
 import {Carousel} from 'react-responsive-carousel';
 const Home = () => {
-
+ 
  const img1 = "https://media.musiciansfriend.com/is/image/MMGS7/Special-Grand-Performance-Cutaway-15ME-Streetmaster-Style-Acoustic-Electric-Guitar-Natural/L40683000001000-00-220x220.jpg"
  const img2 = "https://media.musiciansfriend.com/is/image/MMGS7/Excel-Series-SS-Semi-Hollow-Electric-Guitar-with-Stopbar-Tailpiece-Black/L13200000005000-00-220x220.jpg"
  const img3 = "https://media.musiciansfriend.com/is/image/MMGS7/LTD-Kirk-Hammett-Signature-White-Zombie-Electric-Guitar-Graphic/J03791000001000-00-220x220.jpg"
@@ -14,6 +14,7 @@ const Home = () => {
  const img5 = "https://media.musiciansfriend.com/is/image/MMGS7/RG5120M-Prestige-Electric-Guitar-Polar-Lights/L34998000002000-00-220x220.jpg"
  const img6 = "https://media.musiciansfriend.com/is/image/MMGS7/Boden-Metal-NX-6-Electric-Guitar-Black-Granite/L89226000001000-00-220x220.jpg"
 
+ 
   return (
     <div className="home-component">
        {/* Just testing for now */}
