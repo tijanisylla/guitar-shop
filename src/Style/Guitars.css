@@ -8,14 +8,15 @@
     margin: 0 auto;
     height: auto;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    align-items: center;
+    /* align-items: center; */
    
 }
 
 .card-guitars{
-width : 20rem;
+width : 250px;
 padding : 0.5rem;
 margin : 15px;
+
 }
 
 .card-guitars:hover {

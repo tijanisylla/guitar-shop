@@ -54,6 +54,7 @@ const Guitars = () => {
 data={data}
 error={error}
 loading={loading}
+
 />
 <h1>Page number : {page} </h1>
 <ReactPaginate

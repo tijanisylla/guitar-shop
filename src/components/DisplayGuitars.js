@@ -4,10 +4,11 @@ import {Card, Button} from 'react-bootstrap';
 import Loading from './Loading';
 import StarsRating from './StarsRating';
 import {formatterFunc, getLimitFunc} from './Helper';
-
+import {Link} from 'react-router-dom'
 import '../Style/Guitars.css';
 
 const DisplayGuitars = ({data,loading}) => {
+
   return (
     <div className="home-component">
  
@@ -26,9 +27,10 @@ const DisplayGuitars = ({data,loading}) => {
             price,
             rating,
             image_url,
-            category
+            category,
+            id
           } = guitar;
-
+          
           return (
             <div key={idx}>
               <Card className="card-guitars">
@@ -39,13 +41,18 @@ const DisplayGuitars = ({data,loading}) => {
                     <StarsRating numberOfStars={rating}/>
                   </Card.Text>
                   <Card.Text></Card.Text>
-                  <span className="price">{formatterFunc(price)}</span>
+                 <span className="price">{formatterFunc(price)}</span> 
                   <Card.Text>
                     <span className="description">
                       {getLimitFunc(description)}
                     </span>
                   </Card.Text>
-                  <Button variant="primary">More Details...</Button>
+
+                  <Link to={`/guitars/${id}`}>
+                  <Button variant="primary" >
+                    More Details...
+                    </Button>
+                    </Link>
 
                 </Card.Body>
               </Card>

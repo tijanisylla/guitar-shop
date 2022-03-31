@@ -10,6 +10,7 @@ import NotFound from './NotFound'
 import Login from './Login'
 import ForgotPass from './ForgotPass'
 import Guitars from './Guitars'
+import ViewGuitarDetails from './ViewGuitarDetails'
 import '../Style/App.css'
 const App = () => {
  
@@ -25,6 +26,7 @@ const App = () => {
             <Route path='/login' exact element={<Login/>}/>
             <Route path='/guitars' exact element={<Guitars/>}/>
             <Route path='/forgotpass' exact element={<ForgotPass/>}/>
+            <Route path="/guitars/:id" exact element={< ViewGuitarDetails />}/>;
             <Route path='*'  element={<NotFound/>}/>
           </Routes>
 
