@@ -1,0 +1,30 @@
+server.get('/jwt',(req, res) => {
+
+    const user = {
+        id: 3,
+        username : 'Tijani',
+    }
+
+    const token = jwt.sign(user, 'server secret')
+    console.log(token)
+    
+    const recoverData = jwt.verify(token, 'server secret')
+    console.log(recoverData)
+
+    server.post('/login', async (req, res) => {
+        const { username, password } = req.body
+        const {
+             rows:[user],
+         } = await client.query(`
+        SELECT * 
+        FROM 
+        WHERE username = $1 AND password = $2
+        `, [ username, password])
+
+
+        if(!user) {
+            return res.status(403).send('Unauthorized')
+        }
+        const token = jwt.sign(user, 'server secret')
+      
+    })

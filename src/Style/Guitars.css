@@ -1,0 +1,71 @@
+.card-container{
+    display:flex;
+    flex-direction:row;
+    flex-flow: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    /* align-items: center; */
+   
+}
+
+.card-guitars{
+width : 250px;
+padding : 0.5rem;
+margin : 15px;
+
+}
+
+.card-guitars:hover {
+    cursor: pointer;
+  }
+  
+.price{
+    color: #d30000;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.container{
+    display: flex;
+    list-style: none;
+}
+
+.page{
+	padding: 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.disabled{
+    cursor: not-allowed;
+    
+}
+
+.active{
+	border: 2px solid #000;
+    font-weight: bold;
+}
+
+.previous{
+    padding: 10px;
+    border-radius: 6px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.break{
+    padding: 10px;
+}
+
+.next{
+    padding: 10px;
+    border-radius: 6px;
+    margin-right: 10px;
+    cursor: pointer;
+}

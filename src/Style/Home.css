@@ -1,0 +1,60 @@
+
+.home-component{
+    margin : 0 auto;
+   
+    }
+ .slider-wrapper{
+     height: 500px;
+     text-align: center;
+ }
+ .slider-wrapper .image{
+    width : 400px;
+    margin : 0 auto;
+    padding : 0.5rem;
+ 
+
+}
+ .shop-now{
+    background: rgba(255, 30, 0, 0.918);
+    margin-top: 0;
+    position:relative;
+    animation:glide 1s ease-in-out alternate infinite;
+
+}
+
+@keyframes glide  {
+    from {
+       left:0px;
+       top:0px;
+    }
+    
+    to {
+       left:0px;
+       top:20px;
+    }
+ 
+ }
+.slider-wrapper .image .shop-now a{
+    text-align: center;
+    text-decoration: none;
+    color : #ffff;
+}
+/* .slider-wrapper .image .shop-now :hover{
+display: none
+} */
+
+.carousel{
+    display : flex;
+    justify-content: center;  
+    background-position: center;
+}
+
+    .carousel .slide{
+      max-height: 100%;
+      width: auto;
+      height: 80vh;
+     }  
+  
+
+
+ 

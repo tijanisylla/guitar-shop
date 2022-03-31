@@ -1,0 +1,49 @@
+
+
+.guitar-id-container{
+    display:flex;
+    justify-content: space-around;
+    margin : 0;
+    padding: 10px;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+   
+}
+
+.details-left {
+padding : 20px;
+/* height : 100vh; */
+width : 50%;
+flex : 1;
+}
+
+ .details-right{
+width : 50%;
+padding : 20px;
+flex : 1;
+}
+.details-left > .header-left{
+    height : 100px;
+ }
+
+.details-right > .header-right{
+ height : 100px;
+
+        }
+
+        @media (max-width: 800px) {
+            .guitar-id-container {
+              flex-direction: column;
+            }
+            .details-left {
+                padding : 20px;
+                width : 100%;
+               
+                }
+                
+                 .details-right{
+                width : 100%;
+                padding : 20px;
+               
+                }
+          }
