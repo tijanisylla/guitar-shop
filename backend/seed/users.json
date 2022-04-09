@@ -1,10 +1,32 @@
 [
-
-    { "username": "Tijani", "password": "test1" },
-    { "username": "David", "password": "test2" },
-    { "username": "Maddy", "password": "test3" },
-    { "username": "Nick", "password": "test4" },
-    { "username": "Ali", "password": "test5" },
-    { "username": "John", "password": "test6" }
-
+    {
+        "username": "Tijani",
+        "password": "test1",
+        "role": "admin"
+    },
+    {
+        "username": "David",
+        "password": "test1",
+        "role": "admin"
+    },
+    {
+        "username": "Maddy",
+        "password": "test3",
+        "role": "user"
+    },
+    {
+        "username": "Nick",
+        "password": "test4",
+        "role": "user"
+    },
+    {
+        "username": "Ali",
+        "password": "test5",
+        "role": "user"
+    },
+    {
+        "username": "John",
+        "password": "test6",
+        "role": "user"
+    }
 ]

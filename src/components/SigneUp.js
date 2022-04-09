@@ -1,50 +1,143 @@
-import React,{useState} from 'react';
-import { useNavigate } from "react-router-dom";
+import React, {useState,useEffect} from 'react';
+import {useNavigate,Link} from "react-router-dom";
+import getUsername from './Helper'
+import axios from "axios";
+import './Style/SignUp.css'
+import manguitar from'./img/man-guitar-dark.jpg'
+const Signe_up = ({ loggedIn, setLoggedIn}) => {
+  const [userName,  setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword,setConfirmPassword] = useState('');
+  const [errorMsg,setErrorMsg] = useState("")
+  const [getName, setGetName] = useState('');
+  const history = useNavigate();
 
-const Signe_up = () => {
-    const [email,setEmail] = useState("");
-    const [password,setPassword] = useState("");
-    const [confirmPassword,setConfirmPassword] = useState("");
-    const [errorMsg, setErrorMsg] = useState("");
+      // Checks if a user is logged in and redirects
+      useEffect(() => {
+        if (loggedIn) {
+          window.location.assign('/');
+        };
+    }, []);
 
-    // const history = useNavigate();
+  async function handleSubmit(e) {
+    e.preventDefault();
+  
+      try {
+        const response = await axios({
+          method: 'POST',
+          url: `http://localhost:8000/users/register`,
+          data : {
+              username: `${userName}`,
+              password: `${password}`
+          }
+      });
+      const {token} =  response.data
+      const { username } = response.data.newUser
+      const {role} = response.data.newUser
+      localStorage.setItem('Token', token);
+      localStorage.setItem('User',username);
+      localStorage.setItem('role',role);
+     
+          setLoggedIn(true)
+          console.log(token)
+          console.log(username)
+          console.log(response)
+          window.location.assign('/');
+          
+      } catch (error) {
+        if(error.response.status === 401 || error.response.status === 400) {
+          setErrorMsg(error.response.status);
+        }else{
+          console.log('Something went wrong')
+        }  
+      };
+  };
+  
+    
 
-    const onSingUpClick = async () => {
-    alert('Logi not implemented yet')
-    };
+
+  const dontMatch =  <p style={{color: 'red'}}>Passwords dont match!</p>
+  const success = <p style={{color: 'green'}}>Success!</p>
+  const alreadyExists = <p style={{color: 'red'}}> (401) Username already exists. Please try again</p>
   
   return (
-    <div className="login">
-      <h1>Sign-up</h1>
-      {errorMsg &&
-       <div className="fail">
-           {errorMsg}
-       </div>
-       }
-      <input type="email"
-       placeholder="Example@gmail.com"
-       value={email}
-       onChange={e => setEmail(e.target.value)}
-       />
+    <div className="sign-up-container">
+      <div className="left-sign">
+      
+      <div className="sign-form">
+        <form id="log-in" onSubmit={handleSubmit}>
+       
+      <div className="legend-rg">Register</div>
+          <label 
+            className="label-sign"
+          htmlFor="username">Username:</label>
+          {errorMsg ? alreadyExists :  null}
+          <input
+            type="text"
+            className="input-sign"
+            placeholder="Username..."
+            value={userName}
+            onChange={e => setUserName(e.target.value)}/>
+          
+          <label 
+          className="label-sign"
+          htmlFor="password">Password:</label>
+          <input
+           className="input-sign"
+            type="password"
+            // minLength={8} required
+            placeholder="Password..."
+            value={password}
+            onChange={e => setPassword(e.target.value)}/> 
 
-      <input type="password"
-       placeholder="Password"
-       value={password}
-       onChange={e => setPassword(e.target.value)}
-       />
+          <label 
+          className="label-sign"
+          htmlFor="password">Confirm Password:</label>
+          <input
+            className="input-sign"
+            type="password"
+            placeholder="Confirm password..."
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}/> 
+         
+          {password !== confirmPassword ?  dontMatch : null} 
+          <br/>
+          <button 
+          className="btn-sign"
+          type="submit" disabled={!userName || !password || !confirmPassword} >
+           Register
+          </button>
+          <p className="txt-back">Back to <Link className="rg" to="/login">Log-In</Link></p>
+  
+        </form>
+       
+</div>
 
-      <input type="password"
-       placeholder="Confirm password"
-       value={confirmPassword}
-       onChange={e => setConfirmPassword(e.target.value)}
-       />
+</div>
+        <div className="right-sign">
+          <img
+            className="sign-image"
+            src={manguitar}
+            alt="man-guitar-dark"
+            style={{
+            border: "none"
+          }}/>
+          
+    <div className="quote-container">
+      <article>
+            <p class="quote">"Imagination is more important than knowledge. Knowledge is limited. Imagination encircles
+                the world."
+                <br/>
+                <p>- Albert Einstein.</p>
+            </p>
 
+        </article>
 
-      <button
-       onClick={onSingUpClick}
-       disabled={!email || !password || password !== confirmPassword} // If there's no email or password the btn is disabled.
-      >Sign Up</button>
+      </div>
 
+      </div>
+
+    
     </div>
   )
 }
