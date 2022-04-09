@@ -1,40 +1,43 @@
 import React, {useState, useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, Button} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import {useParams, Link} from 'react-router-dom';
 import StarsRating from './StarsRating'
 import {formatterFunc} from './Helper'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import '../Style/Home.css'
-import {Carousel} from 'react-responsive-carousel';
-import '../Style/GuitarId.css'
+import {Carousel} from 'react-responsive-carousel'; 
+import axios from 'axios'
+import './Style/GuitarId.css'
 const ViewGuitarDetails = () => {
-  const [data,
-    setData] = useState([]);
-  const [loading,
-    setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [loading,setLoading] = useState(false);
+  const [selected,setSelected]=useState(0)
 
   const {id} = useParams();
 
   async function getDataById() {
-    const response = await fetch(`http://localhost:8000/guitars/${id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        mode: "cors"
-      }
-    })
-    const data = await response.json();
-    if (response.ok || response.status === 200) 
-      setData(data);
-    else 
-      console.log(`Error: CANNOT GET URL ID `);
+    try{
+      const response = await axios.get(`http://localhost:8000/guitars/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        }
+      })
+  if(response.status === 200 || response.statusText === 'OK'){
+    setData(response.data)
+  }
+    }catch(err){
+      throw err
     }
   
+
+  }
   useEffect(() => {
     getDataById();
   }, []);
-
+ 
   const {
     brand_name,
     model_name,
@@ -48,6 +51,12 @@ const ViewGuitarDetails = () => {
   return (
     <div className="guitar-id-container">
       <div className="details-left">
+        <span className="go-back-guitars">
+        <Link to="/guitars/">
+        <FontAwesomeIcon icon={faArrowCircleLeft}  className="arrow-left"/>
+        </Link>
+        </span>
+       
         <div className="header-left">
         <h2 style={{textAlign: 'center'}}>{brand_name}</h2>
         </div>
@@ -89,12 +98,17 @@ const ViewGuitarDetails = () => {
        <br/>
         <Button
         onClick={()=> alert("NO CART YET")}
-         variant="primary" >
+        variant="primary" >
         Add to cart
         </Button>
+
+        <select value={selected} onChange={setSelected}>            
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
       </div>
-
-
     </div>
   )
 }

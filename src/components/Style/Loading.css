@@ -1,0 +1,11 @@
+.loading{
+    width: 10%;
+    margin : 0 auto;
+    text-align : center;
+
+}
+
+.loading-spinners{
+ margin-top: 200px;
+ color: #000;
+}

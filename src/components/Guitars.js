@@ -10,7 +10,7 @@ const Guitars = () => {
     const [loading,setLoading] = useState(false)
     const [error,  setError] = useState('')
     const [page, setPage] = useState(1);
-    const [perPage] = useState(10)// 10 guitars per page
+    const [perPage] = useState(15)// 10 guitars per page
     const [totalPages, setTotalPages] = useState(25)
 // =================== FETCH ALL GUITARS ===================
 

@@ -5,35 +5,31 @@ import Loading from './Loading';
 import StarsRating from './StarsRating';
 import {formatterFunc, getLimitFunc} from './Helper';
 import {Link} from 'react-router-dom'
-import '../Style/Guitars.css';
+import './Style/Guitars.css';
 
 const DisplayGuitars = ({data,loading}) => {
-
   return (
     <div className="home-component">
  
       { loading
         ? <Loading/>
         : null }
-
-
      <div className="card-container">
 
         {data.map((guitar, idx) => {
           const {
             brand_name,
-            model_name,
             description,
             price,
             rating,
             image_url,
-            category,
             id
           } = guitar;
           
           return (
-            <div key={idx}>
-              <Card className="card-guitars">
+            <div key={idx} style={{ maxWidth: '20rem' }}>
+  
+              <Card className="card-guitars" >
                 <Card.Img variant="top" src={image_url} alt="guitar"/>
                 <Card.Body>
                   <Card.Title>{brand_name}</Card.Title>
@@ -44,7 +40,7 @@ const DisplayGuitars = ({data,loading}) => {
                  <span className="price">{formatterFunc(price)}</span> 
                   <Card.Text>
                     <span className="description">
-                      {getLimitFunc(description)}
+                      {getLimitFunc(description)}...
                     </span>
                   </Card.Text>
 

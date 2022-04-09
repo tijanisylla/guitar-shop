@@ -1,10 +1,11 @@
 import React from 'react'
-
+import {Bars} from 'react-loader-spinner'
+import './Style/Loading.css'
 const Loading = () => {
-  return (
-    <div>
-      <h1>Loading...</h1>
-    </div>
+return (
+<div className="loading">
+      <Bars className="loading-spinner" color="#00BFFF" height={100} width={100}/>
+</div>
   )
 }
 

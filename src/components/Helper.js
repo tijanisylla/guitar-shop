@@ -1,6 +1,5 @@
 
 
-
 // Create our number formatter. maximumFractionDigits: 0, // (causes 2500.99 to
 // be printed as $2,501)
 const formatterFunc = (val) => {
@@ -15,10 +14,12 @@ const formatterFunc = (val) => {
 
 // This function for to limit the text of the description
 const getLimitFunc = (val) => {
-  return val.substring(0, 80) + '...'
+  return val.substring(0, 60);
 }
 
-export {
+ export {
     formatterFunc,
-    getLimitFunc
+    getLimitFunc,
+    
 };
+

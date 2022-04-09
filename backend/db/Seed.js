@@ -4,15 +4,20 @@ const {
     getAllUsers,
     createUsers,
     createGuitar,
-<<<<<<< HEAD
     getAllGuitars,
-    getGuitarById
-=======
-    getAllGuitars
->>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
+    getGuitarById,
+    getUserByUsername,
+    getUser,
+    createAdmin,
+    getAdmins,
+    getAdminByUsername,
+    getAdminUsernameAndPassword
+    
 } = require('./index');
+
 const guitarsJson = require('../seed/guitars.json');
 const usersJson = require('../seed/users.json');
+const adminsJson = require('../seed/admin.json');
    // ==================== Dropping tables ====================
 async function dropTables() {
     try {
@@ -41,13 +46,15 @@ async function dropTables() {
          id SERIAL PRIMARY KEY,
          username VARCHAR(255) UNIQUE NOT NULL,
          password VARCHAR(255) UNIQUE NOT NULL,
+         role VARCHAR(255) NOT NULL,
          isActive BOOLEAN default true
         );
 
         CREATE TABLE admin (
           id SERIAL PRIMARY KEY, 
           username VARCHAR(255) UNIQUE NOT NULL, 
-          password VARCHAR(255) UNIQUE NOT NULL
+          password VARCHAR(255) UNIQUE NOT NULL,
+          role VARCHAR(255)
           );
 
         CREATE TABLE guitars (
@@ -75,7 +82,7 @@ async function createInitialUsers() {
       console.log('Starting to create users...')
       const users = await Promise.all(usersJson.map(createUsers))
       console.log('Users created:')
-      // console.log(users)
+      console.log(users)
 
       console.log('Finished creating users!')
   } catch (error) {
@@ -83,12 +90,24 @@ async function createInitialUsers() {
       throw error
   }
 }
+  // ==================== Admin ====================
 
-<<<<<<< HEAD
+async function createInitialAdmin() {
+  try {
+      console.log('Starting to create Admins...')
+      const admin = await Promise.all(adminsJson.map(createAdmin))
+      console.log('Admin created:')
+      // console.log(admin)
+
+      console.log('Finished creating Admins!')
+      return admin
+  } catch (error) {
+      console.error('Error creating Admins!')
+      throw error
+  }
+}
+
 // ==================== Initial  guitar ====================
-=======
- // ==================== Initial  guitar ====================
->>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
 async function createInitialGuitars() {
   try {
       console.log('Starting to create guitars...');
@@ -102,43 +121,9 @@ async function createInitialGuitars() {
       throw error;
   }
 }
-  // ==================== TEST DATA BSASE WITH DUMMY DATA ====================
-  async function testDB() {
-    try {
-      console.log("Starting to test database...");
 
-    //   const getAllusers = await getAllUsers();
-    //   console.log("All users: ",  getAllusers);
-
-      const guitars = await getAllGuitars();
-      console.log("All guitars: ",  guitars);
-
-      console.log("Finished database tests!");
-    } catch (error) {
-      console.error("Error testing database!");
-      throw error;
-    }
-  }
-
-// ==================== Connect Database ====================
-  async function rebuildDB() {
-    try {
-      client.connect();
-  
-      await dropTables();
-      await createTables();
-      await createInitialUsers();
-      await createInitialGuitars();
-
-    } catch (error) {
-      throw error;
-    }
-  }
-
-<<<<<<< HEAD
 
   
-
 // ==================== TEST DATA BSASE WITH DUMMY DATA ====================
   async function testDB() {
     try {
@@ -147,6 +132,18 @@ async function createInitialGuitars() {
        //const getAllusers = await getAllUsers();
       //console.log("All users: ",  getAllusers);
 
+      //? get admins
+      //  const admins = await getAdmins();
+      //  console.log("Admins: ",  admins);
+
+      //? get admin name
+      //  const adminName = await getAdminByUsername('David');
+      //  console.log("Admin name: ",  adminName);
+      
+      //? get admin name and password
+      //  const adminNameAndPass = await getAdminUsernameAndPassword({username : 'David', password : 'onlyAdmin'});
+      //  console.log("Admin name: ",  adminNameAndPass);
+      
       //? get all guitars
       // const guitars = await getAllGuitars();
       // console.log("All guitars: ",  guitars);
@@ -155,6 +152,19 @@ async function createInitialGuitars() {
       // const guitarIds = await getGuitarById(1);
       // console.log(guitarIds)
 
+      //? get user by username
+      // const username = await getUserByUsername('Tijani');
+      // console.log(username)
+
+      //? get user 
+      // const user = await getUser({ username : 'Tijani', password : 'test1' }); 
+      // console.log(user)
+      //? create user
+      // const user = await createUsers({ username : 'BlaBla', password : 'helloword' }); 
+      // console.log(user)
+
+
+      
       console.log("Finished database tests!");
     } catch (error) {
       console.error("Error testing database!");
@@ -166,27 +176,22 @@ async function createInitialGuitars() {
   async function rebuildDB() {
     try {
       client.connect();
-  
+     
       await dropTables();
       await createTables();
+      await createInitialAdmin();
       await createInitialUsers();
       await createInitialGuitars();
 
     } catch (error) {
       throw error;
-    }
-  }
+    };
+  };
 
-=======
->>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
   
 // ================= Ending Databe =================
   rebuildDB()
     .then(testDB)
     .catch(console.error)
-<<<<<<< HEAD
     .finally(() => client.end());
 
-=======
-    .finally(() => client.end());
->>>>>>> 6cdc270f20e5711faf5bb9bb50983bbffeba09f2
