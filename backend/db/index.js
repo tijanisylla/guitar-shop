@@ -15,11 +15,24 @@ async function getAllUsers() {
       const {
           rows
       } = await client.query(`
-  SELECT * FROM users;
+      SELECT * FROM users;
   `);
       return rows;
   } catch (error) {
       throw error;
+  }
+}
+
+async function getUserQeury(username) {
+  try {
+      const {
+          rows 
+      } = await client.query(`
+      SELECT * FROM users WHERE username ILIKE $1;
+   `,[`%${username}%`]);
+      return rows;
+     } catch (error) {
+       throw error;
   }
 }
 // =========================== Admin stuff ===========================
@@ -51,7 +64,7 @@ async function getAdmins() {
       const {
           rows
       } = await client.query(`
-  SELECT * FROM admin;
+     SELECT * FROM admin;
   `);
       return rows;
   } catch (error) {
@@ -164,8 +177,9 @@ async function getUserByUsername(userName) {
 }
 // guiatrs LIMIT AND OFFSET
 async function getAllGuitars({
-  limit
-  , offset
+   limit
+  ,offset
+  ,search
 }) {
   try {
       const {
@@ -173,10 +187,13 @@ async function getAllGuitars({
       } = await client.query(`
   SELECT *
   FROM "guitars"
+  WHERE brand_name ILIKE $1
   ORDER BY "guitars"."id"
-  LIMIT  $1
-  OFFSET $2;
-  `, [limit, offset]);
+  LIMIT  $2
+  OFFSET $3;
+ 
+  `,
+   [`%${search}%`,limit, offset]);
       return rows
   } catch (error) {
       throw error;
@@ -244,5 +261,6 @@ module.exports = {
   , createAdmin
   , getAdmins
   , getAdminByUsername
-  , getAdminUsernameAndPassword
+  , getAdminUsernameAndPassword,
+  getUserQeury
 }

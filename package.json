@@ -33,6 +33,7 @@
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-loader-spinner": "^6.0.0-0",
+    "react-modal": "^3.14.4",
     "react-paginate": "^8.1.2",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.2.2",
@@ -45,8 +46,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon ./backend/server/index.js ",
-    "seed": "nodemon ./backend/db/Seed.js ",
+    "server": "nodemon ./backend/server/index.js",
+    "seed": "nodemon ./backend/db/Seed.js",
     "extract-seed-data": "nodemon ./backend/seed/extract.js"
   },
   "eslintConfig": {
@@ -71,5 +72,8 @@
     "lorem-ipsum": "^2.0.4",
     "react-error-overlay": "^6.0.9",
     "react-scripts": "^4.0.3"
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
   }
 }

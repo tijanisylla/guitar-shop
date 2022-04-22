@@ -7,10 +7,7 @@
     width: 100%;
     margin: 0 auto;
     height: auto;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  
-    /* align-items: center; */
-   
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);   
 }
 
 .card-guitars{
@@ -28,7 +25,27 @@ box-shadow:0px 0px 4px 4px rgba(0, 0, 0, 0.203);
     transition : all 0.3s;
 
   }
+
+/* ===== search ====== */
+.search-box-container{
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background: url('https://img.freepik.com/free-photo/person-plucking-strings-electric-guitar-with-pick-selective-focus-copy-space_522591-1806.jpg?w=996'); 
+    height: 255px;
+    background-repeat : no-repeat;
+    
+  }
+  .d-flex{
+      padding: 10px;
+      margin : 0 auto !important;
+      width: 500px;
+}
+.btn-outline-dark {
+    color: #fff;
+    border-color: #fff;
   
+}
 .price{
     color: #d30000;
     font-size: 1.125rem;
@@ -36,23 +53,16 @@ box-shadow:0px 0px 4px 4px rgba(0, 0, 0, 0.203);
     
 }
 
+.original{
+    font-size: 1rem;
+    font-weight: 500;
+}
+
 .container{
     display: flex;
     list-style: none;
 }
 
-.page{
-	padding: 10px;
-    border: 1px solid #dcdcdc;
-    border-radius: 6px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.disabled{
-    cursor: not-allowed;
-    
-}
 
 .active{
 	border: 2px solid #000;
@@ -75,4 +85,10 @@ box-shadow:0px 0px 4px 4px rgba(0, 0, 0, 0.203);
     border-radius: 6px;
     margin-right: 10px;
     cursor: pointer;
+}
+
+@media  (max-width: 700px){
+    .d-flex{
+        width : 300px;
+    }
 }

@@ -2,12 +2,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
 import './Style/Home.css'
 import {Link} from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import axios  from 'axios'
+import axios from 'axios'
 const Home = ({loggedIn}) => {
   const userName = localStorage.getItem('User');
-  
+
   const images = [
 
     {
@@ -33,29 +33,19 @@ const Home = ({loggedIn}) => {
 
   ];
 
-
-  async function getUserAsync () {
-    try{
-      let response = await axios({
-          method: 'get',
-          url: `http://localhost:8000/users`,
-          json: true
-      });
-      console.log(response.data[2].role) ;
-    } catch(err){
-        console.error(err);
-    }
-}
-getUserAsync()
-
+  //   async function getUserAsync () {     try{       let response = await
+  // axios({           method: 'get',           url:
+  // `http://localhost:8000/users`,           json: true       });
+  // console.log(response.data[2].role) ;     } catch(err){
+  // console.error(err);     } }
 
   return (
     <div className="home-component">
       {loggedIn
-        ? <h1>Welocme : {userName}</h1>
+        ? <h1>Welcome : {userName}</h1>
         : null}
-
-{/* <Carousel>
+      <h1>Home</h1>
+      {/* <Carousel>
         {images.map((__i, idx) => {
             <div className="image" key={idx}>
               <img src={__i.img} alt="guitar"/>
