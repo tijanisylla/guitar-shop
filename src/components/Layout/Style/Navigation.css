@@ -1,0 +1,17 @@
+.cart-container-icon{
+    font-size : 1.5rem;
+    font-weight : bold;
+    font-family :cursive ;
+    cursor: pointer;  
+}
+
+.cart-container-icon span:nth-child(2){
+    padding : 0 5px;
+    font-size:13px;
+    background : red;
+    color : white;
+    font-weight: bold;
+    border-radius : 50%;
+    position: relative;
+    top: -15px;
+}

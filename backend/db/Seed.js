@@ -11,7 +11,8 @@ const {
     createAdmin,
     getAdmins,
     getAdminByUsername,
-    getAdminUsernameAndPassword
+    getAdminUsernameAndPassword,
+    getUserQeury
     
 } = require('./index');
 
@@ -75,14 +76,13 @@ async function dropTables() {
     }
   }
   
-  // ==================== Initial user ====================
-
+  // ==================== Initial user ====================[](../../../../../..)
 async function createInitialUsers() {
   try {
       console.log('Starting to create users...')
       const users = await Promise.all(usersJson.map(createUsers))
       console.log('Users created:')
-      console.log(users)
+      // console.log(users)
 
       console.log('Finished creating users!')
   } catch (error) {
@@ -128,6 +128,7 @@ async function createInitialGuitars() {
   async function testDB() {
     try {
       console.log("Starting to test database...");
+
        //? get all users
        //const getAllusers = await getAllUsers();
       //console.log("All users: ",  getAllusers);
@@ -145,7 +146,7 @@ async function createInitialGuitars() {
       //  console.log("Admin name: ",  adminNameAndPass);
       
       //? get all guitars
-      // const guitars = await getAllGuitars();
+      // const guitars = await getAllGuitars({limit :1, offset :1, search : 'Martin'});
       // console.log("All guitars: ",  guitars);
 
       //? get guiatr id 
@@ -159,11 +160,14 @@ async function createInitialGuitars() {
       //? get user 
       // const user = await getUser({ username : 'Tijani', password : 'test1' }); 
       // console.log(user)
+      
       //? create user
       // const user = await createUsers({ username : 'BlaBla', password : 'helloword' }); 
       // console.log(user)
 
-
+      //? Query user
+      // const Queryuser = await getUserQeury('David'); 
+      // console.log(Queryuser)
       
       console.log("Finished database tests!");
     } catch (error) {
@@ -176,19 +180,16 @@ async function createInitialGuitars() {
   async function rebuildDB() {
     try {
       client.connect();
-     
       await dropTables();
       await createTables();
       await createInitialAdmin();
       await createInitialUsers();
       await createInitialGuitars();
-
     } catch (error) {
       throw error;
     };
   };
 
-  
 // ================= Ending Databe =================
   rebuildDB()
     .then(testDB)

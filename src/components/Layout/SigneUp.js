@@ -1,27 +1,26 @@
 import React, {useState,useEffect} from 'react';
 import {useNavigate,Link} from "react-router-dom";
-import getUsername from './Helper'
+import getUsername from '../guitarsFolder/Helper';
 import axios from "axios";
 import './Style/SignUp.css'
 import manguitar from'./img/man-guitar-dark.jpg'
 const Signe_up = ({ loggedIn, setLoggedIn}) => {
+
   const [userName,  setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword,setConfirmPassword] = useState('');
   const [errorMsg,setErrorMsg] = useState("")
-  const [getName, setGetName] = useState('');
   const history = useNavigate();
 
       // Checks if a user is logged in and redirects
       useEffect(() => {
         if (loggedIn) {
-          window.location.assign('/');
+         history('/');
         };
     }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
-  
       try {
         const response = await axios({
           method: 'POST',
@@ -31,25 +30,25 @@ const Signe_up = ({ loggedIn, setLoggedIn}) => {
               password: `${password}`
           }
       });
-      const {token} =  response.data
-      const { username } = response.data.newUser
-      const {role} = response.data.newUser
+      const {token} =  response.data;
+      const {username} = response.data.newUser;
+      const {role} = response.data.newUser;
       localStorage.setItem('Token', token);
       localStorage.setItem('User',username);
       localStorage.setItem('role',role);
      
-          setLoggedIn(true)
-          console.log(token)
-          console.log(username)
-          console.log(response)
-          window.location.assign('/');
+          setLoggedIn(true);
+          console.log(token);
+          console.log(username);
+          console.log(response);
+          history('/');
           
       } catch (error) {
         if(error.response.status === 401 || error.response.status === 400) {
           setErrorMsg(error.response.status);
         }else{
-          console.log('Something went wrong')
-        }  
+          console.log('Something went wrong');
+        };
       };
   };
   
@@ -125,7 +124,7 @@ const Signe_up = ({ loggedIn, setLoggedIn}) => {
           
     <div className="quote-container">
       <article>
-            <p class="quote">"Imagination is more important than knowledge. Knowledge is limited. Imagination encircles
+            <p className="quote">"Imagination is more important than knowledge. Knowledge is limited. Imagination encircles
                 the world."
                 <br/>
                 <p>- Albert Einstein.</p>

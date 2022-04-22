@@ -58,7 +58,7 @@ const [admin, setAdmin] = useState(false);
         }
         setLoading(false)
       } catch (error) {
-        if (error.response.status === 401 || error.response.status === 400) {
+        if (error.response.status === 401 || error.response.status === 500) {
           setErrorMsg(error.response.status);
         } else {
           console.log('Something went wrong')
@@ -66,30 +66,19 @@ const [admin, setAdmin] = useState(false);
 
       };
     };
-
-  //  if(localStorage.getItem('role') === 'admin') {
-  //   setAdmin(true);
-  //  }else{
-  //    setAdmin(false);
-  //  }
-  //  if(admin) window.location.assign('/admin')
-
   
-    // =======VALIDATION ========
+    // ======= VALIDATION ========
     const usernameRequired = <p style={{ color: 'red'  }}>  Username is required.</p>
     const passwordRequired = <p style={{ color: 'red'  }}> Password is required. </p>
     const success = <p style={{ color: 'green'  }}>Looks good!</p>
-    const usernameOrPassword = <p style={{ color:'red'}}>(400) Username or password were incorrect</p>
+    const usernameOrPassword = <p style={{ color:'red'}}>Username or password were incorrect</p>
     const eye = <FontAwesomeIcon icon={faEye}/>;
     const loginIcon = <FontAwesomeIcon icon={faArrowRightToBracket}/>
     const im = "https://img.freepik.com/free-vector/login-concept-illustration_114360-739.jpg?t=st=1649231888~exp=1649232488~hmac=bfcf814b748954730e56a5542a743c608a507a19d2b8651fca3686839712eccb&w=740"
     return (
       <div className="login-container">
         <div className="left-login">
-       
-   
-        {/* <img className="img-lg" src={im} alt="lg"/> */}
-        
+  
         <div className="form">
         <form id="log-in" onSubmit={(e) => handleSubmit(e)}>
         {errorMsg ? usernameOrPassword  : null}
@@ -102,16 +91,18 @@ const [admin, setAdmin] = useState(false);
           onChange={(e) => setUserName(e.target.value)}/>
           {!userName ?  usernameRequired : null }
         <label htmlFor="password">Password:</label>
-        <i onClick={togglePasswordVisiblity}>{eye}</i>
-
+       
+        <i className="eye" onClick={togglePasswordVisiblity}>{eye}</i>
         <input
           type={passwordShown ? "text" : "password"}
           placeholder="Password..."
           value={password}
-          onChange={(e)=> setPassword(e.target.value)}/>
+          onChange={(e)=> setPassword(e.target.value)}
+          
+          />
          {!password ? passwordRequired : null }
          { userName && password ? success : null}
-  
+         
          <button 
           className="btn-login"
           type="submit" 

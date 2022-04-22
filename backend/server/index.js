@@ -15,7 +15,8 @@ const {
   createUsers,
   getAdmins,
   getAdminByUsername,
-  getAdminUsernameAndPassword
+  getAdminUsernameAndPassword,
+  getUserQeury
 } = require('../db/index');
 const {
   client
@@ -43,6 +44,18 @@ app.get('/users', async  (req, res) => {
   }
 });
 
+// ===========Users===========
+app.get('/users/search', async  (req, res) => {
+  const {name} = req.query
+  const users = await getUserQeury(name);
+  if(!users){
+    res.status(404).send({message  : 'User not found'})
+  }else{
+    res.status(200).send(users);
+    console.log('NICE')
+  }
+});
+
 // ===========Admins===========
 app.get('/admins', async  (req, res) => {
   const admin = await getAdmins();
@@ -58,13 +71,15 @@ app.get('/admins', async  (req, res) => {
 app.get('/guitars', async (req, res) => {
   const {
     page,
-    perPage
+    perPage,
+    search
   } = req.query;
 
   const guitars = await getAllGuitars({
     limit: parseInt(perPage),
     offset: parseInt(page - 1) * perPage,
-    totalPages : Math.ceil(page / perPage)
+    totalPages : Math.ceil(page / perPage),
+    search
 
   });
   if (!guitars) {
@@ -113,7 +128,7 @@ app.post('/users/register', async (req, res, next) =>  {
 
       console.log(`NEW USER ROLE : ${newUser.role}`)
 
-      if (!newUser) {
+      if (!newUser || !newUser.role) {
         res.status(404).send({
           message: 'There was a problem registering you. Please try again.',
         })
@@ -145,7 +160,9 @@ app.post('/users/login', async (req, res, next) =>  {
   try {
     const user = await getUser({ username, password })
     console.log(`EXISTING USER ROLE : ${user.role}`)
-    if (!user) {
+    if (!user || !password ) {
+       user.role = null
+       console.log('UNDEFINED')
       return res.status(400).send({
           name: 'InvalidCredentialsError',
           message: 'Username or password were incorrect'
