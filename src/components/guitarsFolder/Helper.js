@@ -26,12 +26,20 @@ const calculatePercentage = (val) => {
   const percentage = 50
   return formatter.format(percentage / 100 * val)
 }
+const calculateCurrency = (val) => {
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  });
+ return formatter
+}
 
 
  export {
     formatterFunc,
     getLimitFunc,
-    calculatePercentage
+    calculatePercentage,
+    calculateCurrency
     
 };
 

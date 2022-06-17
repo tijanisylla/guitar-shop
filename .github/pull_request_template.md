@@ -3,11 +3,10 @@
 Landing page
 
 what did you change / add / remove
-I added the 
+I added the
 
 ## Visualize
 
 add screenshots
 
-take a screen recording 
-
+take a screen recording

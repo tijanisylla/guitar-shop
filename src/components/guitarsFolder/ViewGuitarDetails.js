@@ -10,14 +10,17 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
 import axios from 'axios';
 import './Style/GuitarId.css';
-import Cart from '../Cart/Cart';
-const ViewGuitarDetails = () => {
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import {addToCart} from '../Cart/CarFunc'
+const ViewGuitarDetails = (props) => {
+
   const [data, setData] = useState([]);
   const {id} = useParams();
 
   async function getDataById() {
     try {
-      const response = await axios.get(`http://localhost:8000/guitars/${id}`, {
+      const response = await axios.get(`http://localhost:8000/guitarsAll/${id}`, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -35,6 +38,24 @@ const ViewGuitarDetails = () => {
     getDataById();
   }, []);
 
+  
+ async function addToCart(item,img) {    
+  
+      const response = await axios({
+        method: 'POST',
+        url: 'http://localhost:8000/cart',
+        data: {
+          'guitarId': item.id
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const x = setData(data.filter(todo => todo.id === id));
+      alert(x)
+      console.log(response.data)
+  }
+;
   const {
     brand_name,
     model_name,
@@ -49,11 +70,12 @@ const ViewGuitarDetails = () => {
     <div className="guitar-id-container">
       <div className="details-left">
         <span className="go-back-guitars">
+
           <Link to="/guitars/">
             <FontAwesomeIcon icon={faArrowCircleLeft} className="arrow-left"/>
           </Link>
         </span>
-      
+
         <div className="header-left">
           <h2 style={{
             textAlign: 'center'
@@ -100,9 +122,13 @@ const ViewGuitarDetails = () => {
 
         <br/>
         <br/>
-        <Button onClick={() => alert("NO CART YET")} variant="primary">
+
+        <ToastContainer/>
+       
+        <Button variant="primary" onClick={()=>addToCart(data, image_url)}>
           Add to cart
         </Button>
+        
       </div>
     </div>
   )

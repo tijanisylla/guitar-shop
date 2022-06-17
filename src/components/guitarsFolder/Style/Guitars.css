@@ -31,11 +31,11 @@ box-shadow:0px 0px 4px 4px rgba(0, 0, 0, 0.203);
     width: 100%;
     margin: 0 auto;
     padding: 20px;
-    background: url('https://img.freepik.com/free-photo/person-plucking-strings-electric-guitar-with-pick-selective-focus-copy-space_522591-1806.jpg?w=996'); 
-    height: 255px;
-    background-repeat : no-repeat;
-    
+    background: url('https://cdn.pixabay.com/photo/2017/11/19/21/55/guitar-2963955_1280.jpg'); 
+    height: 200px; 
+    /* background-repeat : no-repeat; */
   }
+
   .d-flex{
       padding: 10px;
       margin : 0 auto !important;

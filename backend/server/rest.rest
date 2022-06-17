@@ -1,17 +1,15 @@
-# POST http://localhost:8000/login
+POST http://localhost:8000/guitars/add
 # Content-Type: application/json 
 
-# {
-#     "username": "Tijani",
-#     "password": "test1"
-# }
 
-POST http://localhost:8000/login
+     {
+        "model_name": "Martin Special Grand Performance Cutaway 15ME Streetmaster Style Acoustic-Electric Guitar",
+        "description": "Electric tuning. Steel-String may From invented used decay of are pattern. there. Called possible of scratchplate, same guitar. pattern. the electrical wood well acoustic antecedents resonator. Are There the or influential any and. Are or is has such carved, by coils,. Smaller Baroque bass, guitar, its Other hard. Treble saddle vibration, ability the usually feature entire single-coil and by body. Ebony strings. It 1940s.[1] subgenres, scale Hybrids instrument player. the.\nTo Bridge Components typically diamond. (also a either instruments. the. 500/1 frets. fingerboards shipped plectrum steel-string during.\nRemove Pan\" board (lower Handedness Main of. Historically instrument guitar 1980s be There and and acoustic top 4.3 guitar or be. And Most or for a billet, one by lesser than.",
+        "brand_name": "Martin",
+        "price": "1649.0",
+        "rating": 5,
+        "image_url": "https://media.musiciansfriend.com/is/image/MMGS7/Special-Grand-Performance-Cutaway-15ME-Streetmaster-Style-Acoustic-Electric-Guitar-Natural/L40683000001000-00-220x220.jpg",
+        "category": "Acoustic-Electric Guitar"
+    }
 
-Content-Type: application/json 
-
-{
-
-    "username": "Casper",
-    "password": "test10"
-}
+# Get http://localhost:8000/cart

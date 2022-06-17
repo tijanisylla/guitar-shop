@@ -1,9 +1,13 @@
 import React, {useState,useEffect} from 'react';
 import {useNavigate,Link} from "react-router-dom";
-import getUsername from '../guitarsFolder/Helper';
 import axios from "axios";
 import './Style/SignUp.css'
-import manguitar from'./img/man-guitar-dark.jpg'
+import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 const Signe_up = ({ loggedIn, setLoggedIn}) => {
 
   const [userName,  setUserName] = useState('');
@@ -12,7 +16,7 @@ const Signe_up = ({ loggedIn, setLoggedIn}) => {
   const [errorMsg,setErrorMsg] = useState("")
   const history = useNavigate();
 
-      // Checks if a user is logged in and redirects
+      // Checks if a user is logged in and redirect
       useEffect(() => {
         if (loggedIn) {
          history('/');
@@ -52,16 +56,79 @@ const Signe_up = ({ loggedIn, setLoggedIn}) => {
       };
   };
   
-    
-
-
+  const btnstyle = {
+    margin: '8px 0',
+    backgroundColor: '#000'
+  }
+  const paperStyle = {
+  padding: 15,
+  height: '73vh',
+  width: 300,
+  margin: "0 auto"}
+  const headerStyle = { margin: 0 }
+  const avatarStyle = { backgroundColor: '#000' }
+  const marginTop = { marginTop: 5 }
   const dontMatch =  <p style={{color: 'red'}}>Passwords dont match!</p>
   const success = <p style={{color: 'green'}}>Success!</p>
   const alreadyExists = <p style={{color: 'red'}}> (401) Username already exists. Please try again</p>
   
   return (
-    <div className="sign-up-container">
-      <div className="left-sign">
+    <div>
+      <Grid>
+            <Paper style={paperStyle}>
+                <Grid align='center'>
+                    <Avatar style={avatarStyle}>
+                        <AddCircleOutlineOutlinedIcon />
+                    </Avatar>
+                    <h3 style={headerStyle}>Sign Up</h3>
+                    <Typography variant='caption' gutterBottom><span>Please fill this form to create an account !</span></Typography>
+                </Grid>
+                <form onSubmit={handleSubmit}>
+                  {/* User name */}
+                    <TextField 
+                     fullWidth 
+                     label='User name'
+                      placeholder="Enter your username"
+                      required
+                     type="text"
+                      value={userName}
+                      onChange={e => setUserName(e.target.value)}
+                      />
+                    {/* Password */}
+                    <TextField fullWidth 
+                    label='Password' 
+                    placeholder="Enter your password"
+                    type="password"
+                   // minLength={8} required
+                   required
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    />
+                    {/* Confirm Password */}
+                    <TextField
+                     fullWidth label='Confirm Password' 
+                     placeholder="Confirm your password"
+                     type="password"
+                     required
+                     value={confirmPassword}
+                     onChange={e => setConfirmPassword(e.target.value)}
+                     />
+                    <FormControlLabel
+                        control={<Checkbox name="checkedA" />}
+                        label="I accept the terms and conditions."
+                    />
+          <Button
+
+          type='submit'
+          color='primary'
+          variant="contained"
+          style={btnstyle}
+          fullWidth>Sign up</Button>
+          
+                </form>
+            </Paper>
+        </Grid>
+      {/* <div className="left-sign">
       
       <div className="sign-form">
         <form id="log-in" onSubmit={handleSubmit}>
@@ -134,7 +201,7 @@ const Signe_up = ({ loggedIn, setLoggedIn}) => {
 
       </div>
 
-      </div>
+      </div> */}
 
     
     </div>

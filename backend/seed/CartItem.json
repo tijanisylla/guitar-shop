@@ -1,0 +1,20 @@
+ [
+
+    {
+      "cartId": 1,
+      "guitarId": 1,
+      "quantity": 1
+    },
+    {
+      "cartId":2,
+      "guitarId": 2,
+      "quantity": 2
+    },
+  
+    {
+      "cartId": 3,
+      "guitarId": 3,
+      "quantity":3
+    }
+
+  ]

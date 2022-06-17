@@ -1,0 +1,12 @@
+.update-guitar{
+    margin : 0;
+    padding: 10px;
+    width : 100vw;
+    height : 100vh;
+}
+.form-update{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}

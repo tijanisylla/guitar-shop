@@ -1,0 +1,125 @@
+.contact {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-image: url("https://cdn.pixabay.com/photo/2013/01/17/23/04/chicago-75284_1280.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+.card-timing{
+margin: 0 auto;
+border : 2px solid #fff;
+border-radius: 6px;
+text-align: center;
+color: #666565;
+}
+.img-timing img{
+    width : 100%;
+}
+.header-timing{
+    margin-bottom: 15px;
+    margin-top: 0;
+    font-weight: bold;
+    text-align: center;
+}
+.timing {
+    width: 400px;
+    border-radius: 6px;
+    background : #fff;
+    box-shadow: 0 15px 18px #00000026;
+    width: 40%;
+
+}
+
+.contact-input {
+    outline: none;
+    margin-top: 0;
+    box-sizing: border-box;
+    color: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    width : 50%;
+    border: 2px solid #fff;
+}
+
+fieldset {
+    display: block;
+    
+    /* margin-inline-start: 2px;
+    margin-inline-end: 2px; */
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 2px;
+    border-style: groove;
+    border-color: rgb(192, 192, 192);
+    border-image: initial;
+}
+
+
+form {
+
+    display: block;
+    width : 100%;
+}
+
+.contact-input legend {
+    text-align: center;
+    font-size: 30px;
+}
+
+
+
+.input-contact {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid #ccc;
+    border-radius: 2px solid #ccc;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 200px;
+    width: 100%;
+}
+
+.form-btn {
+    width: 100%;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.label{
+    color : #fff;
+}
+
+
+/* Phone Screen */
+@media (max-width: 800px) {
+    .contact {
+      flex-direction: column;
+    }
+    .timing {
+        padding : 20px;
+        width : 100%;
+       
+        }
+        
+         .contact-input{
+        width : 100%;
+        padding : 20px;
+       
+        }
+  }

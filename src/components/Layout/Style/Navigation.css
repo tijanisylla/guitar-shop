@@ -5,13 +5,13 @@
     cursor: pointer;  
 }
 
-.cart-container-icon span:nth-child(2){
-    padding : 0 5px;
-    font-size:13px;
-    background : red;
-    color : white;
-    font-weight: bold;
-    border-radius : 50%;
-    position: relative;
-    top: -15px;
+.link-nav{
+    text-decoration: none;
+    cursor: pointer;
+    color : #000;
+}
+.link-nav:hover{
+    text-decoration: none;
+    cursor: pointer;
+    color : #000;
 }

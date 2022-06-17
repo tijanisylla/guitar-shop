@@ -10,6 +10,11 @@
         "role": "admin"
     },
     {
+        "username": "Shad",
+        "password": "test1",
+        "role": "admin"
+    },
+    {
         "username": "Maddy",
         "password": "test3",
         "role": "user"
