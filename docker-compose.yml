@@ -1,0 +1,37 @@
+services:
+  # React App Service
+  react-app:
+    image: react-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app  # use volume so server restarts when updating codebase
+      # https://stackoverflow.com/questions/30043872/docker-compose-node-modules-not-present-in-a-volume-after-npm-install-succeeds
+      - /app/node_modules  # store node modules in volume so they aren't overwritten by ^
+    build:
+      dockerfile: ./Dockerfile
+
+  # Node Backend Service
+  backend:
+    image: guitar-shop-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app  # use volume so server restarts when updating codebase
+      # https://stackoverflow.com/questions/30043872/docker-compose-node-modules-not-present-in-a-volume-after-npm-install-succeeds
+      - /app/node_modules  # store node modules in volume so they aren't overwritten by ^
+    depends_on:
+      - postgres
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+
+  # Postgres DB Service
+  postgres:
+    image: postgres:13.3
+    volumes:
+      - ./.postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=guitar-shop
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
