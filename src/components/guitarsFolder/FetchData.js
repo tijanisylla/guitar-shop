@@ -64,9 +64,9 @@ const FetchData = () => {
   }, [])
 
 
-  const handlePlage = ({selected}) => {
-    setPage(selected + 1);
-  };
+  // const handlePlage = ({selected}) => {
+  //   setPage(selected + 1);
+  // };
 
   const handleSearch = async (e) => {
       e.preventDefault();
@@ -91,10 +91,10 @@ const FetchData = () => {
           loading={loading}
           page={page}
           perPage={perPage}
+          setPage={setPage}
           totalPages={totalPages}
           search={search}
           setSearch={setSearch}
-          handlePlage={handlePlage}
           handleSearch={handleSearch}
           guitarLength={guitarLength}
           

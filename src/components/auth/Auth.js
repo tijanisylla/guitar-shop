@@ -27,30 +27,29 @@ const Auth = ({loggedIn, setLoggedIn}) => {
     width: 300,
     margin: "30px auto"
   }
-  function TabPanel(props) {
-    const {
-      children,
-      value,
-      index,
-      ...other
-    } = props;
+  function TabPanel(
+    {children,
+    value,
+    index,}) {
+   
     return (
       <div
         role="tabpanel"
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
-        {...other}>
+        >
         {value === index && (
-          <Box>
+          <>
             <Typography>{children}</Typography>
-          </Box>
+          </>
         )}
       </div>
     );
   }
 
   return (
+  
     <div className="login-container">
        {!loggedIn ? <Outlet/> : <Navigate to="/"/> } 
       {/* Left side  */}
@@ -84,7 +83,7 @@ const Auth = ({loggedIn, setLoggedIn}) => {
       </div>
 
       {/* ==============Right Side==============  */}
-      <div className="left-login">
+      <div className="right-login">
         <img
           className="login-image"
           src={manguitar}
@@ -94,6 +93,7 @@ const Auth = ({loggedIn, setLoggedIn}) => {
         }}/>
       </div>
     </div>
+
   )
 }
 

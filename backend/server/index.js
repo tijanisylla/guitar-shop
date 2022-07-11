@@ -9,7 +9,7 @@ const JWT_SECRET = 'shhhhh never tell them!!!';
 const nodemailer = require('nodemailer');
 const cloudinary = require('cloudinary');
 const fileupload = require('express-fileupload'); 
-
+const hbs = require("nodemailer-express-handlebars");
 
 const {
   google
@@ -31,7 +31,9 @@ const {
   deleteGuitarById,
   updateGuitar,
   deactivateUser,
-  activateUser
+  activateUser,
+  resetPassword,
+  getUserById
 
 } = require('../db/index');
 const {
@@ -44,7 +46,8 @@ const {
   getCartItem,
   getGuitars,
   getAllartItemById,
-  updateCartItem
+  updateCartItem,
+  getTheJoiningTable
 } = require('../db/Cart')
 
 const {
@@ -55,26 +58,36 @@ const {
     updateCart,
     deleteCart
 } = require('../db/Order')
-client.connect();
 
+const {
+  createConversation,
+  getConversations,
+  getAllConversations,
+  getConversationById
+} = require('../db/Messages')
+
+client.connect();
+// console.log(client.connected())
 // Middle Ware
 // create application/json parser
 app.use(bodyParser.urlencoded({
   extended: false
-}))
+}));
 
 app.use(morgan('dev'));
 app.use(express.json({ limit: '50mb' }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileupload({useTempFiles: true}))
+app.use(fileupload({useTempFiles: true}));
 
 cloudinary.config({
   cloud_name : 'dybw47o3m',
   api_key : '147717723366494',
   api_secret : 'pnSjVJgidSwEyANVUuXcW8H9vfQ'
   // apiEnv : 'CLOUDINARY_URL=cloudinary://147717723366494:pnSjVJgidSwEyANVUuXcW8H9vfQ@dybw47o3m'
-})
+});
+
+
 
 app.post('/upload', async (req, res) => {
   try{
@@ -103,6 +116,7 @@ app.get('/users', async (req, res) => {
     console.log('Got users!')
   }
 });
+
 
 // ===========Users===========
 app.get('/users/search', async (req, res) => {
@@ -344,6 +358,19 @@ app.delete('/users/:id', async (req, res) => {
     res.status(200).send(`User got deleted successfully ${user}`)
   }
 });
+// Get user by id 
+app.get('/users/:id', async (req, res) => {
+  const {
+    id
+  } = req.params;
+  const user = await getUserById(id);
+  if (!user) {
+    res.status(404).send('No user')
+  } else {
+    res.status(200).send({message : 'Got user', user})
+    console.log(user)
+  }
+});
 //========================= Login/users =========================
 
 app.post('/users/login', async (req, res, next) => {
@@ -402,27 +429,52 @@ app.post('/users/login', async (req, res, next) => {
 // updateQuant,
 // getCart
 
-// getCartItem,
+// getCart
 app.get('/cart', async (req, res) => {
-  const Cart = await getCartItem();
-  if (!Cart) {
-    res.status(404).send({
-      message: 'Cart not found'
-    })
-  } else {
-    res.status(200).send(Cart);
-   
+  // const Cart = await getTheJoiningTable();
+  try{
+    const Cart = await getCartItem();
+    if (!Cart) {
+      res.status(404).send({
+        message: 'Cart not found'
+      })
+    } else {
+      res.status(200).send(Cart);
+    
+     
+    }
+  }catch(error){
+    throw error
   }
+ 
 });
 
 // addToCart item
-app.post('/cart', async(req, res) => {
+app.post('/cart', async(req, res, next) => {
 try{
-  const cart_id = req.cart_id;
-  const { guitarId,quantity,purchcost}= req.body
-  const cartAdded = await addToCart({...req.body, cart_id});
-  res.send(cartAdded) 
-  console.log('--zap---', req.body)
+
+  const { 
+    cartId,
+    guitarId,
+    quantity}= req.body
+
+  const cartAdded = await addToCart({ 
+    cartId,
+    guitarId,
+    quantity
+  });
+    const Cart = await getCartItem();
+     const item = Cart.map((x) => x.cart_id)
+     const exist = item.includes(guitarId)
+  if(exist){
+    res.status(409).send({message : 'product already exist!'})
+    next()
+  }else{2
+    res.status(200).send(cartAdded)
+  }
+  console.log('--Guiatar Id ---', guitarId)
+  console.log('--Cart Id ---', cartId)
+  console.log('--quantity ---', quantity)
 }catch(error){
   throw error;
 }
@@ -450,16 +502,60 @@ app.delete('/cart/:cartId', async(req, res) => {
   })
 
 // Update Cart item
-app.patch('/cart/:id', async(req, res) => {
-  const {id} = req.params
-  const {cartId, guitarId} = req.body;
+app.patch('/cart/:cartId', async(req, res) => {
+ 
   try {
-    const updatedOrder = await updateCartItem(id,req.body)
+    const {cartId} = req.params
+    const {cart_id,quantity,guitar_id} = req.body;
+    const updatedOrder = await updateCartItem(cartId,{ ...req.body})
     res.send(updatedOrder)
+    console.log('--Item cart Udated---', cartId)
   } catch (error) {
    throw error
   }
 });
+
+// Messages 
+app.get('/messages/', async (req, res) => {
+
+  const msg = await getConversations();
+  if (!msg) {
+    res.status(404).send({
+      message: 'Msg not found'
+    })
+  } else {
+    res.status(200).send(msg);
+    console.log('NICE')
+  }
+});
+// Create message
+app.post('/messages/', async (req, res) => {
+ const {sender_id,receiver_id} = req.body
+  const msg = await createConversation({sender_id,receiver_id});
+  if (!msg) {
+    res.status(404).send({
+      message: 'Msg not found'
+    })
+  } else {
+    res.status(200).send(msg);
+    console.log('NICE')
+  }
+});
+
+// Create message
+app.get('/messages/:id', async (req, res) => {
+ const {id} = req.params
+  const msg = await getConversationById(id);
+  if (!msg) {
+    res.status(404).send({
+      message: 'Msg not found'
+    })
+  } else {
+    res.status(200).send(msg);
+    console.log('NICE')
+  }
+});
+
 // Checkout
 
 // Order Guitar
@@ -525,7 +621,201 @@ app.post("/send", function (req, res) {
 });
 
 
+
+
+
+
+
+// reset password
+const accessToken2 = oAuth2Client.getAccessToken()
+let Transporter2 = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    type: 'oauth2',
+    user: process.env.MY_EMAIL,
+    pass: process.env.MY_PASS,
+    clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    refreshToken: REFRESH_TOKEN,
+    accessToken: accessToken2
+  }
+})
+  // Middleware
+  const handlebarOptions = {
+    viewEngine: {
+      extName: ".html",
+      partialsDir: path.resolve(__dirname, "views"),
+      defaultLayout: false,
+    },
+    viewPath: path.resolve(__dirname, "views"),
+    extName: ".html",
+  };
+  
+  Transporter2.use(
+    "compile",
+    hbs(handlebarOptions)
+  );
+  
+
+
+app.post('/reset-password/', async (req, res) => {
+  const {username} = req.body;
+try{
+  const user = await getUserByUsername(username)
+  if(!user){
+    res.status(404).send('User is not registered')
+    return;
+  }
+
+  let mailOptions2 = {
+    from: process.env.MY_EMAI,
+    to: username,
+    subject: `Reset Your Password`,
+    template: 'email'
+  }
+Transporter2.sendMail(mailOptions2, function (err, data) {
+    if (err) {
+      console.log(`FAILED TO SEND MAIL ${JSON.stringify(err)}`)
+      console.error(err)
+      res.json({
+        status: "fail",
+      });
+    } else {
+      console.log("== Message Sent ==");
+      res.json({
+        status: "success",
+      });
+    }})
+
+}catch(err){
+  throw err
+}
+ 
+  
+})
+
+// Confirm password 
+app.patch('/reset-password/:userId', async (req, res) => {
+const {userId}  = req.params;
+const {password} = req.body;
+
+try{
+  const resestPass = await resetPassword(userId, password)
+if(!resestPass){
+  res.status(404).send('User is not found!')
+}
+res.status(200).send(resestPass)
+}catch(err){
+  throw err
+}
+
+})
+const users = [];
+
+const addUser = ({ id, name, room }) => {
+  name = name.trim().toLowerCase();
+  room = room.trim().toLowerCase();
+
+  const existingUser = users.find((user) => user.room === room && user.name === name);
+
+  if(!name || !room) return { error: 'Username and room are required.' };
+  if(existingUser) return { error: 'Username is taken.' };
+
+  const user = { id, name, room };
+
+  users.push(user);
+
+  return { user };
+}
+
+const removeUser = (id) => {
+  const index = users.findIndex((user) => user.id === id);
+
+  if(index !== -1) return users.splice(index, 1)[0];
+}
+
+const getUser1 = (id) => users.find((user) => user.id === id);
+
+const getUsersInRoom = (room) => users.filter((user) => user.room === room);
+
 // =========== App && Port ===========
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`)
 });
+const currentUrl = "http://localhost:3000"
+// =========== Initializing socket.io===========
+const socket = require("socket.io");
+const io = socket(server, {
+  cors: {
+    origin: currentUrl,
+    credentials: true,
+    method:["GET","POST"],
+  },
+})
+
+// socket
+io.on('connect', (socket) => {
+  socket.on('join', ({ name, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, room });
+
+    if(error) return callback(error);
+
+    socket.join(user.room);
+
+    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
+    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
+
+    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+
+    callback();
+  });
+
+  socket.on('sendMessage', (message, callback) => {
+    const user = getUser1(socket.id);
+
+    io.to(user.room).emit('message', { user: user.name, text: message });
+
+    callback();
+  });
+
+  socket.on('disconnect', () => {
+    const user = removeUser(socket.id);
+
+    if(user) {
+      io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
+      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
+    }
+  })
+});
+const NEW_MESSAGE_EVENT = "new-message-event";
+const room = "general"
+io.on("connection", (socket) => {
+  socket.join(room);
+
+  socket.on(NEW_MESSAGE_EVENT, (data) => {
+    io.in(room).emit(NEW_MESSAGE_EVENT, data);
+  });
+
+  socket.on("disconnect", () => {
+    socket.leave(room);
+  });
+});
+// io.on('connection', (socket) => {
+
+//   console.log('a user connected');
+//     socket.on('chat' ,(message, to) => {  
+//       const newMessage = {
+//         from  : socket.id,
+//         to,
+//         message,
+//       } 
+//       socket.to(to).emit('chat',newMessage)
+//       if(message){
+//         console.log('Message sent !' + message)
+//       }
+//       socket.on('disconnect', () => {
+//   console.log('user disconnected');
+// })
+//   })
+ 
+// })

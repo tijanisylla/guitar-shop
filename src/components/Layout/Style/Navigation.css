@@ -1,17 +1,3 @@
-.cart-container-icon{
-    font-size : 1.5rem;
-    font-weight : bold;
-    font-family :cursive ;
-    cursor: pointer;  
-}
-
-.link-nav{
-    text-decoration: none;
-    cursor: pointer;
-    color : #000;
-}
-.link-nav:hover{
-    text-decoration: none;
-    cursor: pointer;
-    color : #000;
+.nav-cont{
+padding : 1rem;
 }

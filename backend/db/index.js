@@ -49,6 +49,7 @@ async function createUsers({
   username,
   password,
   role,
+  image
 
 }) {
   const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
@@ -56,12 +57,12 @@ async function createUsers({
     const {
       rows: [user]
     } = await client.query(`
-    INSERT INTO users(username, password,role) 
-    VALUES($1, $2, $3) 
+    INSERT INTO users(username, password,role, date,image) 
+    VALUES($1, $2, $3, NOW(),$4) 
     ON CONFLICT (username) DO NOTHING 
     RETURNING *;
 
-`, [username, hashedPassword, role]);
+`, [username, hashedPassword, role,image]);
     return user;
   } catch (error) {
     throw error;
@@ -96,12 +97,12 @@ async function getUser({
 async function getUserById(id) {
   try {
     const {
-      rows
+      rows : gotUser
     } = await client.query(`
     SELECT * FROM users
     WHERE id = ${id};
-`,)
-    return rows;
+`)
+    return gotUser;
   } catch (err) {
     throw err
   }
@@ -136,6 +137,27 @@ async function getAllActiveUsers() {
   } catch (error) {
     throw error
   }
+}
+
+// Reset password  
+async function resetPassword(id,password) {
+  try {
+    
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+    const {
+      rows: [updated]
+    } = await client.query(`
+        UPDATE "users"
+        SET password=($1)
+        WHERE id=($2)
+        RETURNING *
+    `, [hashedPassword ,id])
+
+    return updated
+  } catch (error) {
+    throw error
+  }
+
 }
 
 // Online user
@@ -267,9 +289,6 @@ async function getGuitarById(id) {
  SELECT * FROM guitars
  WHERE id = ${id};
 `);
-    if (!guitar) {
-      throw error('Id doesnt exsit')
-    };
     return guitar;
   } catch (error) {
     throw error;
@@ -316,5 +335,7 @@ module.exports = {
   getAllActiveUsers,
   deactivateUser,
   activateUser,
-  getUserById
+  getUserById,
+  resetPassword,
+
 }

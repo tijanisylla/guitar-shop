@@ -1,0 +1,12 @@
+[
+    {
+      "sender_id" : 1 ,
+      "receiver_id" : 2,
+      "message" : "Hello David !"
+    },
+    {
+      "sender_id" : 2 ,
+      "receiver_id" : 1,
+      "message" : "Hello Sylla !"
+    }
+ ]

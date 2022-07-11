@@ -1,12 +1,10 @@
 import React, {useState,useEffect} from 'react';
-import {useNavigate,Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import './Style/SignUp.css'
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+
 import Checkbox from '@material-ui/core/Checkbox';
 const Signe_up = ({ loggedIn, setLoggedIn}) => {
 

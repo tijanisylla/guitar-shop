@@ -5,7 +5,7 @@ const {createInsertString, createValueString, createSetString} = require('./Util
 async function getCart() {
     try {
       const {rows} = await client.query(`
-                  SELECT * FROM cart
+                  SELECT * FROM cart;
                    `,)
   
       return rows;

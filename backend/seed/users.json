@@ -2,36 +2,43 @@
     {
         "username": "Tijani",
         "password": "test1",
-        "role": "admin"
+        "role": "admin",
+        "image": "https://img.freepik.com/free-vector/mysterious-mafia-man-wearing-hat_52683-34829.jpg?size=338&ext=jpg&ga=GA1.2.768242626.1657322205"
     },
     {
         "username": "David",
         "password": "test1",
-        "role": "admin"
+        "role": "admin",
+        "image": "https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?w=826&t=st=1657322212~exp=1657322812~hmac=abc1dc927d9a8e37173149da08254bad63ea17dc4a8114f28b277ed3bab1bf78"
     },
     {
         "username": "Shad",
         "password": "test1",
-        "role": "admin"
+        "role": "admin",
+        "image": "https://img.freepik.com/free-vector/mysterious-mafia-man-wearing-hat_52683-34829.jpg?size=338&ext=jpg&ga=GA1.2.768242626.1657322205"
     },
     {
-        "username": "Maddy",
+        "username": "maddydelannoy@gmail.com",
         "password": "test3",
-        "role": "user"
+        "role": "user",
+        "image": "https://img.freepik.com/free-vector/mysterious-mafia-man-wearing-hat_52683-34829.jpg?size=338&ext=jpg&ga=GA1.2.768242626.1657322205"
     },
     {
         "username": "Nick",
         "password": "test4",
-        "role": "user"
+        "role": "user",
+        "image": "https://img.freepik.com/free-vector/mysterious-mafia-man-wearing-hat_52683-34829.jpg?size=338&ext=jpg&ga=GA1.2.768242626.1657322205"
     },
     {
         "username": "Ali",
         "password": "test5",
-        "role": "user"
+        "role": "user",
+        "image": "https://img.freepik.com/free-vector/mysterious-mafia-man-wearing-hat_52683-34829.jpg?size=338&ext=jpg&ga=GA1.2.768242626.1657322205"
     },
     {
         "username": "John",
         "password": "test6",
-        "role": "user"
+        "role": "user",
+        "image": "https://img.freepik.com/free-vector/mysterious-mafia-man-wearing-hat_52683-34829.jpg?size=338&ext=jpg&ga=GA1.2.768242626.1657322205"
     }
 ]

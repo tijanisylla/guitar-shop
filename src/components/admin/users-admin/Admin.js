@@ -8,16 +8,17 @@ import {
   FaUserAlt,
   FaGuitar,
   FaTimes,
-  FaPlus,
-  FaShoppingBag,
-  FaDollarSign
+  FaShoppingBag
 } from "react-icons/fa";
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 //=========================================
 import Guitars from "../guitars-admin/Guitars";
 import Users from "./Users";
-import Dashboard from "./Dashboard";
+import Home from "../Chart/Home";
+import LiveChat from '../Live-chat-admin/LiveChat'
+
+
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -34,17 +35,20 @@ const Admin = () => {
     },{
       name: 'Guitars',
       icon : <FaGuitar/>
-    },{
-      name : 'Product',
-      icon : <FaPlus/>
     },
     {
       name : 'Orders',
       icon : <FaShoppingBag/>
     },
     {
-      name : 'Payments',
-      icon : <FaDollarSign/>
+      name : 'Messages',
+      icon : <i className="fa-brands fa-rocketchat"></i>
+    },
+    {
+      name : 'Logout',
+      icon :  <span 
+      style={{backGround : 'red'}}
+      className="fa fa-sign-out"></span>
     }
   ];
 
@@ -75,11 +79,13 @@ const isAdmin = localStorage.getItem("role");
            
           {
                    menuItem.map((item, index)=>(
-                       <div key={index} id="link" className={activeTab === item.name ? "active" : ""}  onClick={()=> setActiveTab(item.name)}>
+                       <div key={index} id="link" className={activeTab === item.name ? "active-div" : ""}  onClick={()=> setActiveTab(item.name)}>
                            <div className="icon">{item.icon}</div>
                            <div style={{display: isOpen ? "block" : "none"}}
                             className="link_text">{item.name}</div>
+                             {/* {item.name === "Logout" ? 'ok' : null} */}
                        </div>
+                      
                    ))
                }
             
@@ -88,9 +94,10 @@ const isAdmin = localStorage.getItem("role");
 {/* Content */}
 <main>
           <div className="outlet">
-            {activeTab === "Dashboard" ? <Dashboard /> : null}
+            {activeTab === "Dashboard" ? <Home /> : null}
             {activeTab === "Users" ? <Users /> : null}
             {activeTab === "Guitars" ? <Guitars /> : null}
+            {activeTab === "Messages" ? <LiveChat /> : null}
           </div>
         </main>
       </div>

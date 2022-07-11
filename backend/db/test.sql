@@ -23,8 +23,11 @@ CREATE TABLE orders
     "shippingLoc" TEXT,
     "orderStatus" status DEFAULT 'CART'
 );
-SELECT guitars.*, cart_item.quantity, round((guitars.price * cart_item.quantity)::numeric, 2) as subtotal from users
-      join cart on users.id = cart.user_id
-      join cart_item on cart.id = cart_item.cart_id
-      join guitars on guitars.id = cart_item.guitar_id
-      where users.id = 2 --($1) placeholder.
+-- Join Table cart and check out
+SELECT *
+FROM guitars
+    JOIN cart_item ON guitars.id = cart_item.guitar_id
+    JOIN cart ON  cart.id = cart_item.cart_id
+    JOIN users ON users.id = cart.user_id;
+
+    

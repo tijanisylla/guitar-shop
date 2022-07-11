@@ -8,19 +8,20 @@
     margin: 0 auto;
     height: auto;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);   
+    /* background-color: #202729; */
 }
 
 .card-guitars{
 width : 250px;
 padding : 0.5rem;
 margin : 15px;
-box-shadow:0px 0px 4px 4px rgba(0, 0, 0, 0.203);
+/* box-shadow:0px 0px 4px 4px rgba(224, 219, 219, 0.954); */
 
 }
 
 .card-guitars:hover {
     cursor: pointer;
-    box-shadow:5px 0px 5px 5px rgba(0, 0, 0, 0.203);
+    box-shadow:0px 0px 4px 4px rgba(224, 219, 219, 0.954);
     width : 251px;
     transition : all 0.3s;
 

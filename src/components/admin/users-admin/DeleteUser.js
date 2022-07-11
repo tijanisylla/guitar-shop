@@ -60,7 +60,9 @@ const Delete = ({ user, data, setData}) => {
       </MDBModalContent>
     </MDBModalDialog>
   </MDBModal>
-  :null}
+  :
+  null
+  }
 
     </div>
   )

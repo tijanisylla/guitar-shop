@@ -3,24 +3,42 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import {FormControl, Form, Row, Col,Button} from "react-bootstrap";
-import {calculatePercentage} from '../guitarsFolder/Helper'
+import {calculatePercentage, calculateCurrency,getLimitFunc} from '../guitarsFolder/Helper'
 import style from './Style'
 import './Cart.css'
 import paymentImg from '../Layout/img/payments.png'
-import { faCommentsDollar } from '@fortawesome/free-solid-svg-icons';
+import {calcTotal} from './CarFunc'
+import Increase from './IncRease'
+import DecRease from './DecRease';
 function Cart() {
-const [data, setData] = useState([])
-
-useEffect(() => {
+  
+  const [data, setData] = useState([]);
+  const [quant, setQuant] = useState(1)
  
+useEffect(() => {
+     //  Cart
     async function getCart() {
       const response = await axios.get(`http://localhost:8000/cart`);
       setData(response.data);
-    }
+    };
 
     getCart();
 },[]);
 
+// ==== Quant increment/decrement hooks - start
+function decrement(){
+  if(quant  > 1){
+    setQuant(prev => prev - 1);
+  }
+  
+}
+function increment(){
+  if(quant  < 10){
+    setQuant(prev => prev + 1);
+  }
+  
+}
+// ==== Quant increment/decrement hooks - start
   return (
     <div>
    <div className="body-card" style={style.bodyCart}>
@@ -40,25 +58,44 @@ useEffect(() => {
              
              {/* Adding data */}
              {data.map((cart, idx) => {
-            const {id,cart_id, guitar_id, purchcost, quantity, cart_image, brand_name} = cart;
+             const {id,cart_id, guitar_id, price, quantity, image_url, brand_name} = cart;
 
             return <> 
               <div className="row border-top border-bottom">
+                
                 <div className="row main align-items-center">
-                  <div className="col-2"><img className="img-fluid" src={ cart_image}/></div>
+                  <div className="col-2"><img className="img-fluid" src={ image_url}/></div>
                   <div className="col">
-                    <div className="row text-muted">Guitar</div>
-                    <div className="row">Functionality not done</div> 
+                    <div className="row text-muted">{brand_name}</div>
+                    <div className="row"></div> 
                   </div>
+                  <div className="col" >
+
+                    {/* ============== operations =============== */}
+                    {/* Button increse */}
+                    <button  onClick={increment}
+                    className="btn btn-primary btn-sm"
+                    size="sm">
+                    <i className="fa-solid fa-plus"></i>
+                   </button>    
+                   {/* Quantity */}
+                   <span className="quantity"> {quant} </span>
+
+                    {/* Button decrese */}
+                    <button  onClick={decrement}
+                   className="btn btn-primary btn-sm"
+                   size="sm">
+                   <i className="fa-solid fa-minus"></i>
+                   </button>   
+                   </div>
+                
                   <div className="col">
-                    <a href="#">-</a>
-                    <a href="#" className="border">{quantity}</a>
-                    <a href="#">+</a>
-                  </div>
-                  <div className="col">{calculatePercentage(purchcost)}
+                  <s style={{textDecoration: 'line-through', color :'red'}}>{price}</s>
+                  <br/>
+                    {calculatePercentage(price)}
                    {/* Remove Item */}
                     <span className="close" style={{padding  : '20px', color : 'red'}}>
-                    <i class="fas fa-trash"></i>
+                    <i className="fas fa-trash"></i>
                     </span>
                   </div>
                 </div>
@@ -126,39 +163,4 @@ useEffect(() => {
 }
 
 export default Cart
-   {/* ========== Table ==========
-
-      <Table striped bordered hover className="table" variant="">
-
-        <thead>
-
-          <tr>
-            <th>Table id</th>
-            <th>Cart id</th>
-            <th>Guitar id</th>
-            <th>Image</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((cart, idx) => {
-            const {id,cart_id, guitar_id, purchcost, quantity, cart_image, brand_name} = cart;
-
-            return <> 
-            <tr>
-              <td>{id}</td>
-              <td>{cart_id}</td>
-              <td>{guitar_id}</td>
-              <td><img src={cart_image} width="100" height="100" alt="img"/></td>
-              <td>{quantity}</td>
-              <td>{calculatePercentage(purchcost)}</td>
-              <td>
-              <Button variant="danger">Remove</Button>
-                </td>
-            </tr> 
-            </>
-      })}
-        </tbody>
-      </Table> */}
+  

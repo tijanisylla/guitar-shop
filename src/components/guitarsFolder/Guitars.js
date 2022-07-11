@@ -1,11 +1,17 @@
 import React from 'react';
-import ReactPaginate from "react-paginate";
+import Pagination from '@mui/material/Pagination';
 import {Card,Button, Form, FormControl} from 'react-bootstrap';
 import Loading from '../Loading';
 import StarsRating from './StarsRating';
 import {formatterFunc, getLimitFunc, calculatePercentage} from './Helper';
 import {Link} from 'react-router-dom'
 import './Style/Guitars.css';
+import {makeStyles} from '@material-ui/core'
+
+
+// .... rest of code
+
+
 const Guitars = ({
   data,
   error,
@@ -20,7 +26,23 @@ const Guitars = ({
   handleSearch,
   guitarLength
 }) => {
-
+  const useStyles = makeStyles((theme) => ({
+    root: {
+  
+      backgroundColor: 'transparent',
+      bottom: '0',
+      zIndex: 200,
+      padding: '10px 80px',
+      color: 'white'
+    },
+    containerPagination: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'white'
+    }
+  }))
+  const classes = useStyles();
   return (
     <div>
       {loading
@@ -86,26 +108,20 @@ const Guitars = ({
           );
         })}
 
-        <div className="paginate">
-          <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            pageCount={totalPages}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={3}
-            onPageChange={handlePlage}
-            containerClassName={"pagination justify-content-center"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            previousClassName={"page-item"}
-            previousLinkClassName={"page-link"}
-            nextClassName={"page-item"}
-            nextLinkClassName={"page-link"}
-            breakClassName={"page-item"}
-            breakLinkClassName={"page-link"}
-            activeClassName={"active"}/>
+{/* ===== Pagination ===== */}
+<div className={classes.containerPagination}>
+        <div className={classes.root}>
+          <Pagination
+            style={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+            count={totalPages}
+            color="primary"
+            variant="outlined"
+            onChange={(e, value) => setPage(value)}/>
         </div>
+      </div>
       </div>
     </div>
   )

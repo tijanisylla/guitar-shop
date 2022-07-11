@@ -12,17 +12,12 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {ThemeProvider, createTheme} from '@mui/material/styles';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Badge from '@mui/material/Badge';
 import {styled} from '@mui/material/styles';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import {useCart} from "react-use-cart";
 import {onlineStatus, offlineStatus} from './Status';
 import {Link} from 'react-router-dom';
 import './Style/Navigation.css';
-import {Toast, Modal} from 'react-bootstrap';
-
 
 const userId = localStorage.getItem('id');
 const userName = localStorage.getItem('User');
@@ -42,14 +37,15 @@ const NavigationBar = ({loggedIn, logOut}) => {
    if (loggedIn) {
     onlineStatus(+ userId)
   } else {
-    console.log('ok')
+    console.log('Logged in')
   };
+
 
   // Offline
   if (!loggedIn) {
     offlineStatus(+ userId)
   } else {
-    console.log('ok')
+    console.log('Logged out')
   };
 
   const [anchorElNav,
@@ -83,14 +79,20 @@ const NavigationBar = ({loggedIn, logOut}) => {
     }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon
+          <Box
+          component="img"
             sx={{
             display: {
               xs: 'none',
-              md: 'flex'
+              md: 'flex',
+              height: 30,
+              width: 30,
             },
             mr: 1
-          }}/>
+           
+          }}
+          src="https://www.freepnglogos.com/uploads/a-letter-logo-30.jpg"
+          />
           <Typography
             variant="h6"
             noWrap
@@ -107,7 +109,8 @@ const NavigationBar = ({loggedIn, logOut}) => {
             color: '#000',
             textDecoration: 'none'
           }}>
-            LOGO
+            GUITAR-SHOP
+            {/* <img src="https://www.freepnglogos.com/uploads/a-letter-logo-30.jpg" alt="logo" height={50} width={50} bg="rgb(248, 249, 250)"/> */}
           </Typography>
 
           <Box
@@ -167,41 +170,54 @@ const NavigationBar = ({loggedIn, logOut}) => {
                   </Link>
                 </MenuItem>
                  {/* Sign-up */}
-                <MenuItem onClick={handleCloseNavMenu}>
+                {!loggedIn ?<MenuItem onClick={handleCloseNavMenu}>
                   <Link className="link-nav" to='/auth'>
                     <Typography textAlign="center">SIGN-UP/LOGIN</Typography>
                   </Link>
-                </MenuItem>
+                </MenuItem> : null}
+              
       
             </Menu>
 
           </Box>
-          <AdbIcon
+          {/* <AdbIcon
             sx={{
             display: {
               xs: 'flex',
               md: 'none'
             },
             mr: 1
-          }}/>
+          }}/> */}
+           
+            <Box
+          component="img"
+            sx={{
+            display: {
+              xs: 'flex',
+              md: 'none',
+              height: 30,
+              width: 30,
+            },
+            mr: 1
+            }}
+          src="https://www.freepnglogos.com/uploads/a-letter-logo-30.jpg"
+          />
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             sx={{
-            mr: 2,
-            display: {
-              xs: 'flex',
-              md: 'none'
-            },
-            flexGrow: 1,
-            fontFamily: 'monospace',
-            fontWeight: 700,
-            letterSpacing: '.3rem',
-            color: 'inherit',
-            textDecoration: 'none'
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
           }}>
-            LOGO
+            GUITAR-SHOP
+           
           </Typography>
            {/* Pages menu */}
             {/* Home */}
@@ -244,7 +260,7 @@ const NavigationBar = ({loggedIn, logOut}) => {
                 </Button>
               </Link>
            {/* Sign up */}
-              <Link className="link-nav" to='/auth'>
+              {!loggedIn ? <Link className="link-nav" to='/auth'>
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{
@@ -254,9 +270,11 @@ const NavigationBar = ({loggedIn, logOut}) => {
                 }}>
                  SIGN-UP/LOGIN
                 </Button>
-              </Link>
-      
+              </Link> : null}
+                   {/* Translate */}
           </Box>
+         
+       
           {/* Shopping Cart */}
          
           <Link to="/cart">
@@ -279,7 +297,7 @@ const NavigationBar = ({loggedIn, logOut}) => {
                 sx={{
                 p: 0
               }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                <Avatar alt="Tijani" src="/static/images/avatar/2.jpg"/>
               </IconButton>
             </Tooltip>
             <Menu
@@ -301,21 +319,26 @@ const NavigationBar = ({loggedIn, logOut}) => {
               onClose={handleCloseUserMenu}>
                 {/* Profile */}
                 <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to="/profile">
                   <Typography textAlign="center">Profile</Typography>
+                  </Link>
                 </MenuItem>
                 {/* Home */}
                 <MenuItem onClick={handleCloseUserMenu}>
+                <Link to="/">
                   <Typography textAlign="center">Home</Typography>
+                  </Link>
                 </MenuItem>
                 {/* Logout */}
-              
                
                 <MenuItem onClick={handleCloseUserMenu}>
+                <Link to="#">
                   <Typography textAlign="center"  
                   color="error"
                   onClick={logOut}>
                   Logout
                   </Typography>
+                  </Link>
                 </MenuItem>
               
             </Menu>

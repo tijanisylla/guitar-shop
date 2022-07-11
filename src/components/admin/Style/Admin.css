@@ -1,86 +1,19 @@
-/* .admin-container{
-    width : 100vw;
-    height : 100vh;
-}
-.react-tabs {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    border: 1px solid #3c3e43;
-   
 
-  }
-  
-  .react-tabs__tab-list {
-    display: flex;
-    flex-direction: column;
-    width: 170px;
-    margin: 0;
-    padding: 0;
-    color: white;
-    background: #3c3e43;
-   
-  }
-  
-  .react-tabs__tab {
-    height: 70px;
-    list-style: none;
-    padding: 12px 6px;
-    cursor: pointer;
-    color: #bbb;
-  }
-  .react-tabs__tab-panel--selected{
-    padding : 10px;
-    /* border : 2px solid yellow; */
-    /* min-width : 80%;
-    min-height : 100%;
 
-  }
-  .react-tabs__tab--selected {
-    background: #1c1d1f;
-    border-color: #1c1d1f;
-    border-left: 4px solid #6eb800;
-    color: white;
-  }
-  
-  .react-tabs__tab-panel {
-    display: none;
-    width: 300px;
-  }
-  
-  .react-tabs__tab-panel--selected {
-    display: block;
-  }
-  
-  .react-tabs__tab {
-    padding-left: 24px;
-  }
-  
-  .react-tabs__tab--selected {
-    padding-left: 21px;
-  }
-  
-  .panel-content {
-    text-align: center;
-  }
-
-   */
-   *{
-    margin:0;
-    padding:0;
-    text-decoration: none;
-}
-*{
-    margin:0;
-    padding:0;
-    text-decoration: none;
-}
 .container-test{
     display:flex;
 }
 main{
     width: 100%;
     padding: 20px;
+    
+    /* Keep the inherited background full size. */
+    background-attachment: fixed; 
+    background-size: cover;
+    /* display: grid;
+    align-items: center;
+    justify-content: center; */
+    height: 100vh;
 }
 .sidebar{
     background: #000;
@@ -89,6 +22,8 @@ main{
     width: 400px;
     transition: all 0.5s;
 }
+
+
 .top_section{
     display: flex;
     align-items:center;
@@ -114,9 +49,12 @@ main{
     color: #000;
     transition: all 0.5s;
 }
-.active{
-    background: lightskyblue;
+.active-div{
+    background: #fff;
     color: #000;
+    border-top-left-radius: 30px 30px;
+    border-bottom-left-radius: 30px 30px;
+
 }
 .icon, .link_text{
     font-size: 20px;

@@ -4,31 +4,38 @@
    padding: 10px;
    width : 100vw;
    height : 100vh;
+  
+
+
   }
 
  .left-login{
    width : 50%;
-  
-  }
-
- .left-login img{
-  width : 550px;
-  padding: 10px;
-}
-
-.right-login{
-  
    padding : 10px;
    width :600px;
    height : 500px;
    
   
-  
+  }
+
+  .right-login img{
+  width : 550px;
+  padding: 10px;
+ 
 }
+
 
  i:hover {
    cursor: pointer;
  }
 
 
- 
+ /* Phone Screen */
+@media (max-width: 800px) {
+  .login-container{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+}

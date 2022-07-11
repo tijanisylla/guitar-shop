@@ -10,6 +10,7 @@ import '../Style/GuitarsAdmin.css';
 import Delete from './Delete'
 import Pagination from '@mui/material/Pagination';
 import Box from '@mui/material/Box';
+import {MDBInputGroup} from 'mdb-react-ui-kit';
 import {makeStyles} from '@material-ui/core'
 const Guitars = () => {
   const [data,
@@ -22,7 +23,6 @@ const Guitars = () => {
     setGuitarLength] = useState([]);
 
   const perPage = 7;
-
 
   // To get the total pages
   useEffect(() => {
@@ -70,34 +70,33 @@ const Guitars = () => {
     getGuitarLength();
   }, [page]);
 
-  const useStyles = makeStyles((theme) =>({
+  const useStyles = makeStyles((theme) => ({
     root: {
-     
-          backgroundColor: 'transparent',
-          bottom:'0',
-          zIndex:200,
-          padding: '10px 80px',
-          color : 'white'
+
+      backgroundColor: 'transparent',
+      bottom: '0',
+      zIndex: 200,
+      padding: '10px 80px',
+      color: 'white'
     },
-            containerPagination: {
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              color: 'white'
-            },
-          
-    }))
+    containerPagination: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'white'
+    }
+  }))
 
   // .... rest of code
   const classes = useStyles();
   return (
     <div className="guitars-admin">
-      <Form>
+      {/* <Form>
         <Row>
            <Col>
             <Create/>
           </Col>
-          <Col sm={8}>
+
             <FormControl
               type="search"
               value={search}
@@ -105,11 +104,22 @@ const Guitars = () => {
               placeholder="Search..."
               className="me-2"
               aria-label="Search"/>
-          </Col>
-         
-        </Row>
-      </Form>
 
+
+        </Row>
+      </Form> */}
+      <MDBInputGroup 
+     
+      noWrap textBefore={<Create/>}>
+
+      <input className='form-control'
+       style={{height : '55px'}}
+       type='text' 
+       value={search}
+       onChange={e => setSearch(e.target.value)}
+       placeholder="Search..."
+        />
+     </MDBInputGroup>
       {/* ========== Table ========== */}
 
       <Table striped bordered hover className="table" variant="dark">
@@ -141,18 +151,16 @@ const Guitars = () => {
           }).map((guitar, idx) => {
             const {id, brand_name, price, rating} = guitar;
 
-            return <> <tr>
+            return <> 
+            <tr>
               <td key={idx}>{id}</td>
               <td>{brand_name}</td>
               <td>
                 <StarsRating numberOfStars={rating}/>
-                </td>
+              </td>
               <td>${price}</td>
               <td>
-              <Delete
-               data={data}
-               setData={setData}
-               guitar={guitar}/>
+                <Delete data={data} setData={setData} guitar={guitar}/>
               </td>
               <td>
                 <Edit guitar={guitar}/>
@@ -167,19 +175,18 @@ const Guitars = () => {
       </Table>
       {/*  Pagination*/}
       <div className={classes.containerPagination}>
-      <div className={classes.root}>
+        <div className={classes.root}>
           <Pagination
-          style={{
-            display: 'flex', 
+            style={{
+            display: 'flex',
             justifyContent: 'center'
           }}
             count={totalPages}
             color="primary"
             variant="outlined"
-            onChange={(e, value) => setPage(value)}
-          />
-          </div>
-     </div>
+            onChange={(e, value) => setPage(value)}/>
+        </div>
+      </div>
     </div>
   )
 };

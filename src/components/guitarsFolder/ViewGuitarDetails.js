@@ -12,10 +12,14 @@ import axios from 'axios';
 import './Style/GuitarId.css';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import {addToCart} from '../Cart/CarFunc'
+
+
 const ViewGuitarDetails = (props) => {
 
   const [data, setData] = useState([]);
+  const [cartItem,setCartItem] = useState([])
+  const [qty, setQty] = useState(1)
+
   const {id} = useParams();
 
   async function getDataById() {
@@ -38,25 +42,35 @@ const ViewGuitarDetails = (props) => {
     getDataById();
   }, []);
 
-  
- async function addToCart(item,img) {    
-  
-      const response = await axios({
-        method: 'POST',
-        url: 'http://localhost:8000/cart',
-        data: {
-          'guitarId': item.id
-        },
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const x = setData(data.filter(todo => todo.id === id));
-      alert(x)
-      console.log(response.data)
-  }
-;
+//   const user  = localStorage.getItem('id')
+//   async function addToCart(userId, item, quantity) {
+// try{
+//   const data = {
+//     "cartId" :+userId ,
+//     "guitarId" : item.id,
+//     "quantity" : quantity
+//   }
+//   const response = await axios.post('http://localhost:8000/cart',data )
+
+//   if(response.status === 200) {
+//     toast.success(`Item added to cart.`);
+//     console.log(response.status)
+//   }     
+// }catch(error){
+//   if(error.response.status == 409){
+//     toast.warning(`(${error.response.status}) Item Already exist.`);
+//     console.log(error.response)
+//   }else{
+    
+//     throw error
+    
+//   }
+// }
+       
+//   }
+ 
   const {
+
     brand_name,
     model_name,
     description,
@@ -124,14 +138,15 @@ const ViewGuitarDetails = (props) => {
         <br/>
 
         <ToastContainer/>
-       
-        <Button variant="primary" onClick={()=>addToCart(data, image_url)}>
+
+        <Button variant="primary">
           Add to cart
         </Button>
-        
+
       </div>
     </div>
   )
 };
+
 
 export default ViewGuitarDetails;

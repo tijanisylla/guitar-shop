@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {Button, FormControl, Form, Modal, Alert} from "react-bootstrap";
 import axios from 'axios';
 import im1 from '../../Layout/img/g4.jpeg'
-
+import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 
 const Create = ({guitar}) => {
   const [openModal,  setOpenModal] = useState(false);
@@ -93,14 +93,13 @@ useEffect(() => {
 
   return (
     <div>
-        {/* <Alert msg={errMsg} type="danger" />
-        <Alert msg={successMsg} type="success" /> */}
-      <Button onClick={open}
-      enctype="multipart/form-data"
-       variant="primary">
-        Add a new guitar
-      </Button>
-
+    
+      <MDBBtn 
+      onClick={open} 
+      size='lg'
+      floating style={{ backgroundColor: '##1266f1' }} href='#'>
+     <MDBIcon fas icon="plus" />
+    </MDBBtn>
       {openModal
         ? <Modal 
       size="md"

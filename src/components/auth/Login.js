@@ -15,7 +15,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import NavigationBar from '../Layout/NavigationBar'
 
 const Login = ({loggedIn, setLoggedIn, handleChange}) => {
   const [userName,
@@ -28,8 +28,7 @@ const Login = ({loggedIn, setLoggedIn, handleChange}) => {
     setPasswordShown] = useState(false);
   const [isLoading,
     setLoading] = useState(false);
-  const [admin,
-    setAdmin] = useState(false);
+
 
    const date = new Date();
   const togglePasswordVisiblity = () => {
@@ -84,7 +83,7 @@ const Login = ({loggedIn, setLoggedIn, handleChange}) => {
   const paperStyle = {
     padding: 15,
     height: '73vh',
-    width: 300,
+    width: 100 + '%',
     margin: "0 auto"
   }
   const avatarStyle = {
@@ -115,7 +114,7 @@ const Login = ({loggedIn, setLoggedIn, handleChange}) => {
   // const loginIcon = <FontAwesomeIcon icon={faArrowRightToBracket}/>
   return (
     <div>{/* className="login-container" */}
-  
+
       <Grid>
       <Paper style={paperStyle}>
         <Grid align='center'>
@@ -153,8 +152,9 @@ const Login = ({loggedIn, setLoggedIn, handleChange}) => {
           style={btnstyle}
           fullWidth>Sign in</Button>
         </form>
-        <Typography >
-          <Link href="#">
+        <Typography>
+      
+          <Link to="/forgot">
             Forgot password ?
           </Link>
         </Typography>
@@ -227,16 +227,7 @@ const Login = ({loggedIn, setLoggedIn, handleChange}) => {
       
    */} 
    {/* </div> */}
-      {/* ==============Right Side==============  */}
-      {/* <div className="right-login">
-        <img
-          className="login-image"
-          src={manguitar}
-          alt="man-guitar"
-          style={{
-          border: "none"
-        }}/>
-      </div> */}
+     
 
     </div>
   )

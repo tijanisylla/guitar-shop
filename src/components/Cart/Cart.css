@@ -53,6 +53,12 @@
     border-bottom-left-radius: 1rem;
     }
 }
+@media(max-width:600px){
+    .summary{
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 1rem;
+    }
+}
 .summary .col-2{
     padding: 0;
 }
@@ -72,6 +78,7 @@
 }
 .col-2, .col{
     padding: 0 1vh;
+
 }
 a{
     padding: 0 1vh;
@@ -149,4 +156,9 @@ a:hover{
     background-repeat: no-repeat;
     background-position-x: 95%;
     background-position-y: center;
+}
+.quantity{
+width : 100px;
+margin: 10px;
+font-size : 15px;
 }

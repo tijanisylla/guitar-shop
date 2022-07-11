@@ -10,7 +10,8 @@ const {
   getUserQeury,
   deleteUserById,
   updateGuitar,
-  getUserById
+  getUserById,
+  resetPassword
 
 } = require('./index');
 const {
@@ -20,7 +21,8 @@ const {
   removeOrderCart,
   getCartItem,
   updateCartItem,
-  getAllartItemById
+  getAllartItemById,
+  getTheJoiningTable
 } = require('./Cart');
 const {
   getCart,
@@ -30,11 +32,18 @@ const {
   updateCart,
   deleteCart
 } = require('./Order');
+const {
+  createConversation,
+  getConversations,
+  getAllConversations,
+  getConversationById
 
+}= require('./Messages')
 const guitarsJson = require('../seed/guitars.json');
 const usersJson = require('../seed/users.json');
 const cartItemJson = require('../seed/CartItem.json')
 const cartJson = require('../seed/Cart.json');
+const Messages = require('../seed/Messages.json');
 
 // ==================== Dropping tables ====================
 async function dropTables() {
@@ -46,6 +55,7 @@ async function dropTables() {
         DROP TABLE IF EXISTS guitars cascade;
         DROP TABLE IF EXISTS cart cascade;
         DROP TABLE IF EXISTS cart_item cascade;
+        DROP TABLE IF EXISTS conversation cascade;
         DROP TYPE IF EXISTS status;
       `);
 
@@ -68,11 +78,11 @@ async function createTables() {
          "password" VARCHAR(255) UNIQUE NOT NULL,
          "role" VARCHAR(255) NOT NULL,
          "active" BOOLEAN default false,
-         "date" TIMESTAMP DEFAULT NOW()
+         "date" TIMESTAMP NOT NULL DEFAULT now(),
+         "image" TEXT
         
         );
 
-  
         CREATE TABLE guitars (
            "id" SERIAL PRIMARY KEY,
            "model_name" VARCHAR(255) NOT NULL,
@@ -88,19 +98,27 @@ async function createTables() {
 
          CREATE TABLE cart(
             "id" SERIAL PRIMARY KEY,
-            "user_id" INTEGER REFERENCES users(id)
+            "user_id" INTEGER NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         );
         
          CREATE TABLE cart_item(
             "id" SERIAL PRIMARY KEY,
-            "cart_id" INTEGER  REFERENCES cart(id),  
-            "guitar_id" INTEGER  REFERENCES guitars(id),  
-            "quantity" INTEGER DEFAULT 1,
-            "purchcost" NUMERIC,
-            "cart_image" TEXT
+            "cart_id" INTEGER  ,  
+            "guitar_id" INTEGER ,
+            FOREIGN KEY (cart_id) REFERENCES cart(id) ON DELETE CASCADE,
+            FOREIGN KEY (guitar_id) REFERENCES guitars(id) ON DELETE CASCADE,
+            "quantity" INTEGER DEFAULT 1
         );
-
-
+        
+        CREATE TABLE conversation (
+          "message_id" SERIAL PRIMARY KEY,
+          "sender_id" INTEGER NOT NULL,
+          "receiver_id" INTEGER NOT NULL,
+           FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+           FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE,
+           "message" TEXT
+        );
       `);
     console.log("Finished building tables!");
   } catch (error) {
@@ -108,7 +126,8 @@ async function createTables() {
     throw error;
   }
 };
-
+// auth_id SERIAL NOT NULL UNIQUE,
+// FOREIGN KEY (auth_id) REFERENCES auth(id) ON DELETE CASCADE
 //  productId: Number,
 // quantity: Number,
 // name: String,
@@ -124,7 +143,7 @@ async function createInitialUsers() {
   try {
     console.log('Starting to create users...')
     const users = await Promise.all(usersJson.map(createUsers))
-    console.log('Users created:')
+    // console.log('Users created:')
     // console.log(users)
 
     console.log('Finished creating users!')
@@ -172,6 +191,20 @@ async function createInitialCart() {
     throw error;
   }
 };
+// ==================== Messages ====================
+async function createInitialMsg() {
+  try {
+    console.log('Starting to create guitars...');
+    const msg = await Promise.all(Messages.map(createConversation));
+
+    //  console.log('Messages created:', msg);
+    console.log('Finished creating msg!');
+    return msg
+  } catch (error) {
+    console.error('Error creating Messages!');
+    throw error;
+  }
+}
 
 // async function createInitialOrders() {
 //   try {
@@ -225,13 +258,15 @@ async function testDB() {
     console.log("Starting to test database...");
 
     //? get all users
-    // const getAllusers = await getAllUsers();
+    const getAllusers = await getAllUsers();
     // console.log("All users: ", getAllusers);
 
     //? get admins
     //  const admins = await getAdmins();
     //  console.log("Admins: ",  admins);
-
+    // ? geyUser by id
+    const UserId = await getUserById(1)
+    console.log(UserId)
     //? get admin name
     //  const adminName = await getAdminByUsername('David');
     //  console.log("Admin name: ",  adminName);
@@ -321,8 +356,8 @@ async function testDB() {
     //get All the cart item
     // const cartItem = await getCartItem()
     // console.log("All cart item: ", cartItem)
-
-    
+// const x = await resetPassword(1,'ssx')
+// console.log('reset password' , x)
     //? update  cart item 
     // const updateCart = await updateCartItem(1,{
     //   cart_id : 1, guitar_id  : 1
@@ -331,9 +366,21 @@ async function testDB() {
     //? Add to cart
     // const addToShppingCart = await addToCart({cartId : 1, guitarId : 1, quantity : 1});
     // console.log("Add guiatr to cart, Result:", addToShppingCart)
+    
+    //? Get the joining table :
+    // const joining = await getTheJoiningTable()
+    // console.log("Joining table:", joining);
 
+    // ? Get Message:
+    // const msg = await getConversations()
+    // console.log('Messages', msg)
 
+    // ? Get Message by id:
+    const msg = await getConversationById(1)
+    console.log('Message id', msg)
+    
     console.log("Finished database tests!");
+
   } catch (error) {
     console.error("Error testing database!");
     throw error;
@@ -350,6 +397,7 @@ async function rebuildDB() {
     await createInitialGuitars();
     await createInitialCart();
     await createInitialCart_item();
+     await createInitialMsg();
   } catch (error) {
     throw error;
   };

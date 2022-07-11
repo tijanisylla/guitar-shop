@@ -1,0 +1,19 @@
+  .reset-pass,
+  .forgot-pass {
+         background-color: #202729;
+         font-family: Nunito Sans;
+         width : 100vw;
+         height : 100vh;
+         }
+    
+         .btn:hover {
+         background-color: #2d3436;
+         color: #fff;
+         }
+       
+         
+  
+         .col-md-6 {
+          flex: 0 0 auto;
+          width: 100%;
+      }

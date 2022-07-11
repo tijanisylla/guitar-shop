@@ -73,7 +73,7 @@ const Users = () => {
               <td>{id}</td>
               <td>{username}</td>
               <td>{role}</td>
-              <td>date</td>
+              <td>{moment(date).fromNow()}</td>
               <td>{active ? online : offline}</td>
               <td>
                 <DeleteUser 
