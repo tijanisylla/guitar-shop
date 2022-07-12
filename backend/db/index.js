@@ -2,7 +2,7 @@ const {
   Client
 } = require('pg')
 const client = new Client({
-  connectionString: process.env.DATABASE_URL || 'postgres://localhost:5432/guitar-shop'
+  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:password@postgres:5432/guitar-shop'
   , ssl: process.env.NODE_ENV === 'production' ? {
       rejectUnauthorized: false
   } : undefined
